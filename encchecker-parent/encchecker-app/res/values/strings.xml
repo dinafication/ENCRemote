@@ -3,8 +3,10 @@
 
     <string name="app_name">Maven Quickstart</string>
     <string name="hello">Hello encchecker-app!</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    
+    <string name="settings_pomoc">Pomoć</string>
+    <string name="settings_postavke">Postavke</string>
+    <string name="settings_stanje">Stanje</string>
     
     <string name="enc_stanje_text">ENC stanje:</string>
     <string name="pomoc_text">POMOĆ</string>

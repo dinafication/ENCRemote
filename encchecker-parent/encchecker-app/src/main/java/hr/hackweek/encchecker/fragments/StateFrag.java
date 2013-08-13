@@ -15,6 +15,7 @@ import org.apache.http.message.BasicNameValuePair;
 import hr.hackweek.encchecker.R;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.AndroidHttpClient;
@@ -29,13 +30,18 @@ import android.widget.TextView;
 
 public class StateFrag extends Fragment {
 
+	public static final String PREFERENCES = "ENCPrefs";
+	
 	private final String TAG = "STATE_FRAG";
 	private View view;
 	private ProgressDialog pd;
 
+	private SharedPreferences mGameSettings;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+		mGameSettings = getActivity().getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 		view = inflater.inflate(R.layout.state_frag, container, false);
 
 		return view;
@@ -50,7 +56,7 @@ public class StateFrag extends Fragment {
 		StringBuilder url = new StringBuilder();
 		url.append(getResources().getString(R.string.base_url));
 		url.append(getResources().getString(R.string.auth_login));
-		
+
 		dest.execute(new String[] { url.toString() });
 	}
 
@@ -62,7 +68,7 @@ public class StateFrag extends Fragment {
 		@Override
 		protected void onPreExecute() {
 			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
-			
+
 			pd = new ProgressDialog(view.getContext());
 			pd.setTitle("Processing...");
 			pd.setMessage("Please wait.");
@@ -124,11 +130,10 @@ public class StateFrag extends Fragment {
 
 		/**
 		 * Dohvaća podatak o stanju enca i vraća ga u FDloat objektu
-		 *
+		 * 
 		 * @return
 		 */
 		private Float fetchENCState(String page) {
-			
 
 			return 103.75f;
 		}
@@ -148,16 +153,16 @@ public class StateFrag extends Fragment {
 			return str.toString();
 		}
 
-
 		/**
-		 * Šalje korisnikov username i password i dogvaća stranicu na kojoj je stanje
+		 * Šalje korisnikov username i password i dogvaća stranicu na kojoj je
+		 * stanje
 		 * 
 		 * @param url
 		 * @return html page
 		 */
 		public String postLoginData(String url) {
 			String ret = null;
-			
+
 			HttpPost httppost = new HttpPost(url);
 
 			try {
@@ -167,7 +172,7 @@ public class StateFrag extends Fragment {
 				nameValuePairs.add(new BasicNameValuePair("username", "mladen.cikara"));
 				nameValuePairs.add(new BasicNameValuePair("password", "22563585"));
 				nameValuePairs.add(new BasicNameValuePair("login", "Prijava"));
-				
+
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 				// Execute HTTP Post Request
@@ -175,7 +180,7 @@ public class StateFrag extends Fragment {
 
 				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 				ret = createPageFromStream(reader);
-				
+
 			} catch (ClientProtocolException e) {
 				Log.e(TAG, e.getLocalizedMessage());
 			} catch (IOException e) {

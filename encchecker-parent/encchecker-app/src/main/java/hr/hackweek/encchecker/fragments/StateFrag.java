@@ -14,6 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import hr.hackweek.encchecker.R;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -29,7 +30,8 @@ import android.widget.TextView;
 public class StateFrag extends Fragment {
 
 	private final String TAG = "STATE_FRAG";
-	private View view;
+	private View view;	
+	private ProgressDialog pd;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,32 +46,46 @@ public class StateFrag extends Fragment {
 		super.onStart();
 
 		DownloadEncStateTask dest = new DownloadEncStateTask();
-		
+
 		dest.execute(new String[] { getResources().getString(R.string.base_url) });
 	}
-		
+
 	private class DownloadEncStateTask extends AsyncTask<String, Void, Float> {
+
+
+		@Override
+		protected void onPreExecute() {
+			pd = new ProgressDialog(view.getContext());
+			pd.setTitle("Processing...");
+			pd.setMessage("Please wait.");
+			pd.setCancelable(false);
+			pd.setIndeterminate(true);
+			pd.show();
+		}
+
 
 		@Override
 		protected Float doInBackground(String... params) {
 			Float response;
-			
+
 			if (isOnline()) {
 				postLoginData(params[0]);
 				response = fetchENCState();
 			} else {
 				response = fetchStoredState();
 			}
-			
+
 			return response;
 		}
 
 		@Override
 		protected void onPostExecute(Float result) {
+			pd.dismiss();
+			
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 			encState.setText(result.toString());
 		}
-		
+
 		/**
 		 * Vraća lokalno storani podatak
 		 * 

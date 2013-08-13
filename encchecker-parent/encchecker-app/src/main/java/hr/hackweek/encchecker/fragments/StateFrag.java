@@ -74,7 +74,7 @@ public class StateFrag extends Fragment {
 			Float response;
 
 			if (isOnline()) {
-				String sessionId = postLoginDataAndSetCookie(params[0]);
+				String sessionId = postLoginData(params[0]);
 
 				response = fetchENCState(sessionId);
 			} else {
@@ -130,7 +130,7 @@ public class StateFrag extends Fragment {
 			return 103.75f;
 		}
 
-		private String parseEncStatePage(BufferedReader reader) {
+		private String createPageFromStream(BufferedReader reader) {
 			StringBuilder str = new StringBuilder();
 			String line = null;
 
@@ -152,7 +152,7 @@ public class StateFrag extends Fragment {
 		 * @param url
 		 * @return html page
 		 */
-		public String postLoginDataAndSetCookie(String url) {
+		public String postLoginData(String url) {
 			String ret = null;
 			
 			HttpPost httppost = new HttpPost(url);
@@ -171,7 +171,7 @@ public class StateFrag extends Fragment {
 				HttpResponse response = httpclient.execute(httppost);
 
 				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
-				ret = parseEncStatePage(reader);
+				ret = createPageFromStream(reader);
 				
 			} catch (ClientProtocolException e) {
 				Log.e(TAG, e.getLocalizedMessage());

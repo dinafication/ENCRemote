@@ -1,23 +1,23 @@
 package hr.hackweek.encchecker.fragments;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import hr.hackweek.encchecker.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,7 +30,7 @@ import android.widget.TextView;
 public class StateFrag extends Fragment {
 
 	private final String TAG = "STATE_FRAG";
-	private View view;	
+	private View view;
 	private ProgressDialog pd;
 
 	@Override
@@ -40,8 +40,6 @@ public class StateFrag extends Fragment {
 
 		return view;
 	}
-	
-	
 
 	@Override
 	public void onStart() {
@@ -49,11 +47,17 @@ public class StateFrag extends Fragment {
 
 		DownloadEncStateTask dest = new DownloadEncStateTask();
 
-		dest.execute(new String[] { getResources().getString(R.string.base_url) });
+		StringBuilder url = new StringBuilder();
+		url.append(getResources().getString(R.string.base_url));
+		url.append(getResources().getString(R.string.auth_login));
+		
+		dest.execute(new String[] { url.toString() });
 	}
 
 	private class DownloadEncStateTask extends AsyncTask<String, Void, Float> {
 
+		// Create a new HttpClient and Post Header
+		private AndroidHttpClient httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
 
 		@Override
 		protected void onPreExecute() {
@@ -65,14 +69,14 @@ public class StateFrag extends Fragment {
 			pd.show();
 		}
 
-
 		@Override
 		protected Float doInBackground(String... params) {
 			Float response;
 
 			if (isOnline()) {
-				postLoginData(params[0]);
-				response = fetchENCState();
+				String sessionId = postLoginDataAndSetCookie(params[0]);
+
+				response = fetchENCState(sessionId);
 			} else {
 				response = fetchStoredState();
 			}
@@ -83,7 +87,7 @@ public class StateFrag extends Fragment {
 		@Override
 		protected void onPostExecute(Float result) {
 			pd.dismiss();
-			
+
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 			encState.setText(result.toString());
 		}
@@ -117,40 +121,65 @@ public class StateFrag extends Fragment {
 
 		/**
 		 * Dohvaća podatak o stanju enca i vraća ga u FDloat objektu
-		 * 
+		 *
 		 * @return
 		 */
-		private Float fetchENCState() {
-			// TODO: dodati parsiranje HTTPS requesta
+		private Float fetchENCState(String page) {
+			
 
 			return 103.75f;
 		}
 
-		public void postLoginData(String url) {
-			// Create a new HttpClient and Post Header
-			HttpClient httpclient = new DefaultHttpClient();
+		private String parseEncStatePage(BufferedReader reader) {
+			StringBuilder str = new StringBuilder();
+			String line = null;
+
+			try {
+				while ((line = reader.readLine()) != null) {
+					str.append(line + "\n");
+				}
+			} catch (IOException e) {
+				Log.e(TAG, e.getLocalizedMessage());
+			}
+
+			return str.toString();
+		}
+
+
+		/**
+		 * Šalje korisnikov username i password i dogvaća stranicu na kojoj je stanje
+		 * 
+		 * @param url
+		 * @return html page
+		 */
+		public String postLoginDataAndSetCookie(String url) {
+			String ret = null;
+			
 			HttpPost httppost = new HttpPost(url);
 
 			try {
+
 				// Add your data
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				nameValuePairs.add(new BasicNameValuePair("formPost_username", "mladen.cikara"));
-				nameValuePairs.add(new BasicNameValuePair("formPost_password", "22563585"));
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+				nameValuePairs.add(new BasicNameValuePair("username", "mladen.cikara"));
+				nameValuePairs.add(new BasicNameValuePair("password", "22563585"));
+				nameValuePairs.add(new BasicNameValuePair("login", "Prijava"));
+				
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 				// Execute HTTP Post Request
 				HttpResponse response = httpclient.execute(httppost);
 
-				Log.d(TAG, response.toString());
-
+				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+				ret = parseEncStatePage(reader);
+				
 			} catch (ClientProtocolException e) {
 				Log.e(TAG, e.getLocalizedMessage());
 			} catch (IOException e) {
-				Log.e(TAG, "IO " + e.getLocalizedMessage());
+				Log.e(TAG, e.getLocalizedMessage());
 			}
-			catch(Exception e){
-			// TODO	
-			}
+
+			return ret;
 		}
 	}
 }

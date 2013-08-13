@@ -47,10 +47,10 @@ public class StateFrag extends Fragment {
 	 */
 	private void chechState() {
 		if (isOnline()) {
-			TextView encState = (TextView) view.findViewById(R.id.textView1);
+			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 			encState.setText(fetchENCState().toString());
 		} else {
-			TextView encState = (TextView) view.findViewById(R.id.textView1);
+			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 			encState.setText(fetchStoredState().toString());
 		}
 	}

@@ -57,10 +57,12 @@ public class StateFrag extends Fragment {
 	private class DownloadEncStateTask extends AsyncTask<String, Void, Float> {
 
 		// Create a new HttpClient and Post Header
-		private AndroidHttpClient httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+		private AndroidHttpClient httpclient;
 
 		@Override
 		protected void onPreExecute() {
+			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+			
 			pd = new ProgressDialog(view.getContext());
 			pd.setTitle("Processing...");
 			pd.setMessage("Please wait.");
@@ -74,9 +76,9 @@ public class StateFrag extends Fragment {
 			Float response;
 
 			if (isOnline()) {
-				String sessionId = postLoginData(params[0]);
+				String page = postLoginData(params[0]);
 
-				response = fetchENCState(sessionId);
+				response = fetchENCState(page);
 			} else {
 				response = fetchStoredState();
 			}
@@ -87,6 +89,7 @@ public class StateFrag extends Fragment {
 		@Override
 		protected void onPostExecute(Float result) {
 			pd.dismiss();
+			httpclient.close();
 
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 			encState.setText(result.toString());

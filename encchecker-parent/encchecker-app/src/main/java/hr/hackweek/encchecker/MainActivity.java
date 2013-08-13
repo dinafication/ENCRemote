@@ -1,5 +1,6 @@
 package hr.hackweek.encchecker;
 
+import hr.hackweek.encchecker.fragments.PasswordFrag;
 import hr.hackweek.encchecker.fragments.StateFrag;
 import android.app.Activity;
 import android.os.Bundle;
@@ -30,7 +31,8 @@ public class MainActivity extends FragmentActivity {
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
 
-		StateFrag statfrag = new StateFrag();
+		//StateFrag statfrag = new StateFrag();
+		PasswordFrag statfrag = new PasswordFrag();
 		fragmentTransaction.add(R.id.fragmentViewGroup, statfrag);
 		fragmentTransaction.commit();
 	}

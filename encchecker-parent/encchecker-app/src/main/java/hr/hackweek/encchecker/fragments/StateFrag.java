@@ -76,9 +76,9 @@ public class StateFrag extends Fragment {
 			Float response;
 
 			if (isOnline()) {
-				String sessionId = postLoginData(params[0]);
+				String page = postLoginData(params[0]);
 
-				response = fetchENCState(sessionId);
+				response = fetchENCState(page);
 			} else {
 				response = fetchStoredState();
 			}

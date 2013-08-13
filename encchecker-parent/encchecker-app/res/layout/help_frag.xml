@@ -5,12 +5,23 @@
     android:orientation="vertical" >
     
 
+        <FrameLayout
+        android:id="@+id/state_oglasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/state_oglasi_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="oglasi" />
+    </FrameLayout>
+    
      <TextView
-            android:id="@+id/enc_stanje_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:layout_centerHorizontal="true"
-            android:text="TODO HELP......tralalalllllarewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" 
-            android:lines="4"/>
+         android:id="@+id/enc_stanje_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="45dp"
+         android:lines="4"
+         android:text="TODO HELP......tralalalllllarewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" />
+
 </LinearLayout>

@@ -17,5 +17,7 @@ public class PasswordFrag extends Fragment{
 		view = inflater.inflate(R.layout.password_frag, container, false);
 		return view;
 	}
+	
+	
 
 }

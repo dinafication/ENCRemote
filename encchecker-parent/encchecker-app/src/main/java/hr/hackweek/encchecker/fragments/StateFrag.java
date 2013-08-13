@@ -38,6 +38,8 @@ public class StateFrag extends Fragment {
 
 		return view;
 	}
+	
+	
 
 	@Override
 	public void onStart() {
@@ -128,7 +130,10 @@ public class StateFrag extends Fragment {
 			} catch (ClientProtocolException e) {
 				Log.e(TAG, e.getLocalizedMessage());
 			} catch (IOException e) {
-				Log.e(TAG, e.getLocalizedMessage());
+				Log.e(TAG, "IO " + e.getLocalizedMessage());
+			}
+			catch(Exception e){
+			// TODO	
 			}
 		}
 	}

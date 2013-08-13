@@ -9,7 +9,8 @@
     <string name="enc_stanje_text">ENC stanje:</string>
     <string name="pomoc_text">POMOĆ</string>
     <string name="postavke_text">POSTAVKE</string>
-    <string name="base_url">https://prodaja.hac.hr</string>    
+    <string name="base_url">https://prodaja.hac.hr</string>
+    <string name="auth_login">/auth_login.action</string>    
    
     <string name="postavi">POSTAVI</string>
     <string name="username_label">Korisničko ime:</string>

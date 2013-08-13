@@ -8,4 +8,5 @@
     <string name="enc_stanje_text">ENC stanje:</string>
     <string name="pomoc_text">POMOĆ</string>
     <string name="postavke_text">POSTAVKE</string>
+    <string name="base_url">https://prodaja.hac.hr</string>    
 </resources>

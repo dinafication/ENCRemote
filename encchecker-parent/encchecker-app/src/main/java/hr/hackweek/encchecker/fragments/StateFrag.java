@@ -31,6 +31,23 @@ public class StateFrag extends Fragment {
 	private final String TAG = "STATE_FRAG";
 	private View view;
 
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+		view = inflater.inflate(R.layout.state_frag, container, false);
+
+		return view;
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		DownloadEncStateTask dest = new DownloadEncStateTask();
+		
+		dest.execute(new String[] { getResources().getString(R.string.base_url) });
+	}
+		
 	private class DownloadEncStateTask extends AsyncTask<String, Void, Float> {
 
 		@Override
@@ -38,7 +55,7 @@ public class StateFrag extends Fragment {
 			Float response;
 			
 			if (isOnline()) {
-				postLoginData();
+				postLoginData(params[0]);
 				response = fetchENCState();
 			} else {
 				response = fetchStoredState();
@@ -91,10 +108,10 @@ public class StateFrag extends Fragment {
 			return 103.75f;
 		}
 
-		public void postLoginData() {
+		public void postLoginData(String url) {
 			// Create a new HttpClient and Post Header
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost("https://prodaja.hac.hr");
+			HttpPost httppost = new HttpPost(url);
 
 			try {
 				// Add your data
@@ -114,21 +131,5 @@ public class StateFrag extends Fragment {
 				Log.e(TAG, e.getLocalizedMessage());
 			}
 		}
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-		view = inflater.inflate(R.layout.state_frag, container, false);
-
-		return view;
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-
-		DownloadEncStateTask dest = new DownloadEncStateTask();
-		dest.execute(new String[] { "http://www.vogella.com" });
 	}
 }

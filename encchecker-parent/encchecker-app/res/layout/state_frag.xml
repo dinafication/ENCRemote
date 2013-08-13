@@ -67,13 +67,15 @@
             android:id="@+id/btn_postavke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/postavke_text" />
+            android:text="@string/postavke_text"
+            android:onClick="postavkeClck" />
 
         <Button
             android:id="@+id/btn_pomoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pomoc_text" />
+            android:text="@string/pomoc_text"
+            android:onClick="pomocClck" />
     </LinearLayout>
 
 </RelativeLayout>

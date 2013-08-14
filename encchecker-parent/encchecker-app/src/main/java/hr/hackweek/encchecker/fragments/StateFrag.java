@@ -36,6 +36,7 @@ public class StateFrag extends Fragment {
 	private View view;
 	private ProgressBar pb;
 
+	private TextView offline;
 	private String username;
 	private String password;
 
@@ -46,8 +47,9 @@ public class StateFrag extends Fragment {
 
 		appSettings = getActivity().getSharedPreferences(ApplicationConstants.PREFERENCES, Context.MODE_PRIVATE);
 		view = inflater.inflate(R.layout.state_frag, container, false);
-		
+
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
+		offline = (TextView) view.findViewById(R.id.offline_text_view);
 
 		return view;
 	}
@@ -82,10 +84,18 @@ public class StateFrag extends Fragment {
 
 		// Create a new HttpClient and Post Header
 		private AndroidHttpClient httpclient;
+		private boolean online;
 
 		@Override
 		protected void onPreExecute() {
 			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+
+			online = isOnline();
+			if (online) {
+				toggleOfflineMessage(TextView.INVISIBLE);
+			} else {
+				toggleOfflineMessage(TextView.VISIBLE);
+			}
 
 			// Pokrenuti Progress Bar
 			pb.setEnabled(true);
@@ -97,21 +107,31 @@ public class StateFrag extends Fragment {
 		protected String doInBackground(String... params) {
 			String response;
 
-			if (isOnline()) {
+			if (online) {
+
 				response = postLoginData(params[0]);
 			} else {
+
 				response = fetchStoredState();
 			}
 
 			return response;
 		}
 
+		/**
+		 * Parametar treba biti TextView.INVISIBLE ili TextView.VISIBLE
+		 * 
+		 * @param state
+		 */
+		private void toggleOfflineMessage(int state) {
+			offline.setVisibility(state);
+		}
+
 		@Override
 		protected void onPostExecute(String result) {
 			pb.setEnabled(false);
 			pb.setVisibility(ProgressBar.INVISIBLE);
-			
-			
+
 			httpclient.close();
 
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
@@ -144,7 +164,7 @@ public class StateFrag extends Fragment {
 			 * Vtariti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu
 			 */
-			return netInfo.isAvailable() && !netInfo.isRoaming();
+			return netInfo.isConnected() && !netInfo.isRoaming();
 		}
 
 		/**

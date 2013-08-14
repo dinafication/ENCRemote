@@ -12,9 +12,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+
+import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.R;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.AndroidHttpClient;
@@ -33,9 +36,15 @@ public class StateFrag extends Fragment {
 	private View view;
 	private ProgressDialog pd;
 
+	private String username;
+	private String password;
+
+	private SharedPreferences appSettings;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+		appSettings = getActivity().getSharedPreferences(ApplicationConstants.PREFERENCES, Context.MODE_PRIVATE);
 		view = inflater.inflate(R.layout.state_frag, container, false);
 
 		return view;
@@ -45,13 +54,26 @@ public class StateFrag extends Fragment {
 	public void onStart() {
 		super.onStart();
 
+		loadPreferences();
+
 		DownloadEncStateTask dest = new DownloadEncStateTask();
 
 		StringBuilder url = new StringBuilder();
 		url.append(getResources().getString(R.string.base_url));
 		url.append(getResources().getString(R.string.auth_login));
-		
+
 		dest.execute(new String[] { url.toString() });
+	}
+
+	private void loadPreferences() {
+
+		if (appSettings.contains(ApplicationConstants.USERNAME_PREFERENCES)) {
+			username = appSettings.getString(ApplicationConstants.USERNAME_PREFERENCES, "");
+		}
+
+		if (appSettings.contains(ApplicationConstants.PASSWORD_PREFERENCES)) {
+			password = appSettings.getString(ApplicationConstants.PASSWORD_PREFERENCES, "");
+		}
 	}
 
 	private class DownloadEncStateTask extends AsyncTask<String, Void, Float> {
@@ -62,7 +84,7 @@ public class StateFrag extends Fragment {
 		@Override
 		protected void onPreExecute() {
 			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
-			
+
 			pd = new ProgressDialog(view.getContext());
 			pd.setTitle("Processing...");
 			pd.setMessage("Please wait.");
@@ -124,11 +146,10 @@ public class StateFrag extends Fragment {
 
 		/**
 		 * Dohvaća podatak o stanju enca i vraća ga u FDloat objektu
-		 *
+		 * 
 		 * @return
 		 */
 		private Float fetchENCState(String page) {
-			
 
 			return 103.75f;
 		}
@@ -148,26 +169,26 @@ public class StateFrag extends Fragment {
 			return str.toString();
 		}
 
-
 		/**
-		 * Šalje korisnikov username i password i dogvaća stranicu na kojoj je stanje
+		 * Šalje korisnikov username i password i dogvaća stranicu na kojoj je
+		 * stanje
 		 * 
 		 * @param url
 		 * @return html page
 		 */
 		public String postLoginData(String url) {
 			String ret = null;
-			
+
 			HttpPost httppost = new HttpPost(url);
 
 			try {
 
 				// Add your data
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-				nameValuePairs.add(new BasicNameValuePair("username", "mladen.cikara"));
-				nameValuePairs.add(new BasicNameValuePair("password", "22563585"));
+				nameValuePairs.add(new BasicNameValuePair("username", username));
+				nameValuePairs.add(new BasicNameValuePair("password", password));
 				nameValuePairs.add(new BasicNameValuePair("login", "Prijava"));
-				
+
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 				// Execute HTTP Post Request
@@ -175,7 +196,7 @@ public class StateFrag extends Fragment {
 
 				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 				ret = createPageFromStream(reader);
-				
+
 			} catch (ClientProtocolException e) {
 				Log.e(TAG, e.getLocalizedMessage());
 			} catch (IOException e) {

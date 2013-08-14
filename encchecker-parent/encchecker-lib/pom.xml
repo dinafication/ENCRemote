@@ -7,19 +7,20 @@
     <artifactId>encchecker-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>hr.hackweek</groupId>
+  
   <artifactId>encchecker-lib</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  
   <name>encchecker-lib</name>
-  <url>http://maven.apache.org</url>
-  <properties>
+  
+<properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <dependencies>
+
+<dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

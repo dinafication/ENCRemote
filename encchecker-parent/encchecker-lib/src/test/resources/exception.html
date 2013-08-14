@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html>
+<head>
+	
+
+<!-- INIT -->
+<title>HAC Portal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache-control" content="must-revalidate">
+<meta http-equiv="Cache-control" content="max-age=0">
+<link href="css/login.css" rel="stylesheet" type="text/css">
+<link href="css/temp.css" rel="stylesheet" type="text/css">
+<link href="css/jquery-ui-1.8.6.custom.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/flowplayer-3.1.4.min.js"></script>
+<script type="text/javascript" src="js/portal.js"></script>
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="js/registered.js"></script>
+
+	<script type="text/javascript" src="js/date_hr.js"></script>
+
+
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/ck/ckeditor.js"></script>
+<!--[if IE 6]>
+	<link href="../portalie6.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+
+</head>
+<body>
+<div id="header">
+	
+
+<!-- HEADER -->
+<div class="header">
+	<div class="headerImage"><img src="images/pic_logo_topleft_hr.jpg" alt="HAC internet portal"></div>
+	<div class="headerText"></div>
+	<div class="headerLogin">
+		<ul class="headerLineText">
+			<li>Jezik:</li>
+			<li>
+				<tr>
+    <td class="tdLabel"></td>
+    <td
+><select name="selectedJezik" id="selectedJezik" onchange="javascript: location.href='auth_lang.action?request_locale='+this.value">
+    <option value="hr" selected="selected">Hrvatski</option>
+    <option value="en">English</option>
+
+
+</select>
+</td>
+</tr>
+
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="menuContainer">
+	<ul id="topmenu" class="menu hover">
+		<li>
+			<a id="ajax_public_index" class="login"><span>Prijava korisnika</span></a>
+			<a id="ajax_ponuda_paketi" class="kupovina"><span>Kupovina paketa</span></a>
+			<a class="informacije" id="ajax_news_list_view"><span>Novosti</span></a>
+			<a id="ajax_i_payment" class="uputeZaNadoplatu"><span>Upute za nadoplatu</span></a>
+			<a id="ajax_instructions" class="uputeZaPortal hover"><span>Upute za portal</span></a>
+			<a id="ajax_contact" class="kontakt hover"><span>Kontakt</span></a>
+		</li>
+	</ul>
+</div>
+</div>
+<div id="middle">
+	<div class="myBody">
+		<div id="content" class="content">
+			
+
+<h1>Prijava korisnika</h1>
+
+<div id="error_box">
+	<div class="ui-state-error ui-corner-all error_box" style="text-align: center; display: block; height: auto;">
+	<ul class="errorMessage" style="width: 90%; float:left; display: block;">
+            <li><span>Korisničko ime ili lozinka nisu prepoznati u sustavu.</span></li>	</ul>
+		<div class="close_red" onClick="document.getElementById('error_box').innerHTML='';">&nbsp;</div>
+		<div style="clear: both; height: 2px;">&nbsp;</div>
+	</div>
+</div>
+
+<div class="clear_row">&nbsp;</div>
+<form id="formPost" name="formPost" action="/auth_login.action;jsessionid=235AC4A1174A124A03D6F4F796D49DBD" method="post" enctype="multipart/form-data; charset=UTF-8;" accept-charset="UTF-8">
+<table class="login" cellspacing="0" cellpadding="1" border="0" id="ctl00_ContentData_loginCtrl" style="border-collapse:collapse;">
+<tr>
+	<td><table cellpadding="0" border="0">
+		<tr>
+			<td align="right">
+				Korisničko ime
+			</td>
+			<td>
+				<input type="text" name="username" value="mladen" id="formPost_username" class="input_field"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				Lozinka
+			</td>
+			<td>
+				<input type="password" name="password" id="formPost_password" class="input_field"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" colspan="2">
+				<input type="submit" id="formPost_login" name="login" value="Prijava"/>
+ 
+			</td>
+		</tr>
+	</table></td>
+</tr>
+</table>
+</form>
+
+
+
+
+<br/>
+<div style="width:222px; height:25px; line-height:25px; display:block; margin:0px auto; text-align:right; clear:both;">
+	
+	<a href="/auth_restartPassword.action;jsessionid=235AC4A1174A124A03D6F4F796D49DBD" class="ajax-links links">Zaboravili ste lozinku?</a>
+</div>
+<div id="contentMessage" class="content">
+	<span style="color:red"></span>
+</div>
+<b style="margin-top: 40px;">Upute vezane uz "<b>korisničko ime</b>"</b>
+<ol style="margin-left:100px; margin-top: 20px;">
+	<li style="margin-bottom: 20px;">REGISTRIRANI KORISNIK:
+		<ul style="list-style: disc; margin-left: 20px;">
+			<li>za fizičke osobe, korisničko ime: ime.prezime (Primjer: hrvoje.horvat)</li><li>za pravne osobe, korisničko ime: matični broj tvrtke (Primjer: 01554964)</li><li>za obrtnike, korisničko ime: matični broj (Primjer: 1504975330001)</li>
+		</ul>
+	</li>
+	<li style="margin-bottom: 20px;">ANONIMNI KORISNIK:
+		<ul style="list-style: disc; margin-left: 20px;">
+			<li>Korisničko ime: broj ENC uređaja (Primjer: 041001952784)</li><li>Lozinka: broj ENC uređaja (Primjer: 041001952784)</li>
+		</ul>
+	</li>
+</ol>
+<script type="text/javascript">register_links();</script>
+		</div>
+	</div>
+</div>
+<div id="footer">
+	
+
+<!-- FOOTER -->
+<div class="footer">HAC Portal v1.3.0,Sva prava pridržana</div>
+</div>
+</body>
+</html>

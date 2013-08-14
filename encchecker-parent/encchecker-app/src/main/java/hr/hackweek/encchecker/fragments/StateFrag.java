@@ -12,6 +12,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+
+import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.R;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -30,18 +32,19 @@ import android.widget.TextView;
 
 public class StateFrag extends Fragment {
 
-	public static final String PREFERENCES = "ENCPrefs";
-	
 	private final String TAG = "STATE_FRAG";
 	private View view;
 	private ProgressDialog pd;
 
-	private SharedPreferences mGameSettings;
+	private String username;
+	private String password;
+
+	private SharedPreferences appSettings;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		mGameSettings = getActivity().getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+		appSettings = getActivity().getSharedPreferences(ApplicationConstants.PREFERENCES, Context.MODE_PRIVATE);
 		view = inflater.inflate(R.layout.state_frag, container, false);
 
 		return view;
@@ -51,6 +54,8 @@ public class StateFrag extends Fragment {
 	public void onStart() {
 		super.onStart();
 
+		loadPreferences();
+
 		DownloadEncStateTask dest = new DownloadEncStateTask();
 
 		StringBuilder url = new StringBuilder();
@@ -58,6 +63,17 @@ public class StateFrag extends Fragment {
 		url.append(getResources().getString(R.string.auth_login));
 
 		dest.execute(new String[] { url.toString() });
+	}
+
+	private void loadPreferences() {
+
+		if (appSettings.contains(ApplicationConstants.USERNAME_PREFERENCES)) {
+			username = appSettings.getString(ApplicationConstants.USERNAME_PREFERENCES, "");
+		}
+
+		if (appSettings.contains(ApplicationConstants.PASSWORD_PREFERENCES)) {
+			password = appSettings.getString(ApplicationConstants.PASSWORD_PREFERENCES, "");
+		}
 	}
 
 	private class DownloadEncStateTask extends AsyncTask<String, Void, Float> {
@@ -169,8 +185,8 @@ public class StateFrag extends Fragment {
 
 				// Add your data
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-				nameValuePairs.add(new BasicNameValuePair("username", "mladen.cikara"));
-				nameValuePairs.add(new BasicNameValuePair("password", "22563585"));
+				nameValuePairs.add(new BasicNameValuePair("username", username));
+				nameValuePairs.add(new BasicNameValuePair("password", password));
 				nameValuePairs.add(new BasicNameValuePair("login", "Prijava"));
 
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

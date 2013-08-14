@@ -15,7 +15,6 @@ import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.R;
 import hr.hackweek.encchecker.lib.AuthenticationException;
 import hr.hackweek.encchecker.lib.EncPageParser;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -28,13 +27,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class StateFrag extends Fragment {
 
 	private final String TAG = "STATE_FRAG";
 	private View view;
-	private ProgressDialog pd;
+	private ProgressBar pb;
 
 	private String username;
 	private String password;
@@ -46,6 +46,8 @@ public class StateFrag extends Fragment {
 
 		appSettings = getActivity().getSharedPreferences(ApplicationConstants.PREFERENCES, Context.MODE_PRIVATE);
 		view = inflater.inflate(R.layout.state_frag, container, false);
+		
+		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
 
 		return view;
 	}
@@ -85,12 +87,10 @@ public class StateFrag extends Fragment {
 		protected void onPreExecute() {
 			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
 
-			pd = new ProgressDialog(view.getContext());
-			pd.setTitle("Processing...");
-			pd.setMessage("Please wait.");
-			pd.setCancelable(false);
-			pd.setIndeterminate(true);
-			pd.show();
+			// Pokrenuti Progress Bar
+			pb.setEnabled(true);
+			pb.setIndeterminate(true);
+			pb.setVisibility(ProgressBar.VISIBLE);
 		}
 
 		@Override
@@ -108,7 +108,10 @@ public class StateFrag extends Fragment {
 
 		@Override
 		protected void onPostExecute(String result) {
-			pd.dismiss();
+			pb.setEnabled(false);
+			pb.setVisibility(ProgressBar.INVISIBLE);
+			
+			
 			httpclient.close();
 
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);

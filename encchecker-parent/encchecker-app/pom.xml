@@ -19,6 +19,11 @@
 	</properties>
 
 	<dependencies>
+	    <dependency>
+			<groupId>hr.hackweek</groupId>
+			<artifactId>encchecker-lib</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>

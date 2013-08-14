@@ -1,8 +1,6 @@
 package hr.hackweek.encchecker.fragments;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +13,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.R;
+import hr.hackweek.encchecker.lib.AuthenticationException;
+import hr.hackweek.encchecker.lib.EncPageParser;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StateFrag extends Fragment {
 
@@ -76,7 +77,7 @@ public class StateFrag extends Fragment {
 		}
 	}
 
-	private class DownloadEncStateTask extends AsyncTask<String, Void, Float> {
+	private class DownloadEncStateTask extends AsyncTask<String, Void, String> {
 
 		// Create a new HttpClient and Post Header
 		private AndroidHttpClient httpclient;
@@ -94,13 +95,11 @@ public class StateFrag extends Fragment {
 		}
 
 		@Override
-		protected Float doInBackground(String... params) {
-			Float response;
+		protected String doInBackground(String... params) {
+			String response;
 
 			if (isOnline()) {
-				String page = postLoginData(params[0]);
-
-				response = fetchENCState(page);
+				response = postLoginData(params[0]);				
 			} else {
 				response = fetchStoredState();
 			}
@@ -109,12 +108,14 @@ public class StateFrag extends Fragment {
 		}
 
 		@Override
-		protected void onPostExecute(Float result) {
+		protected void onPostExecute(String result) {
 			pd.dismiss();
 			httpclient.close();
 
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
-			encState.setText(result.toString());
+			encState.setText(result);
+			
+			// TODO: spremiti vrijednost u settinse
 		}
 
 		/**
@@ -122,10 +123,10 @@ public class StateFrag extends Fragment {
 		 * 
 		 * @return
 		 */
-		private Float fetchStoredState() {
+		private String fetchStoredState() {
 			// TODO napraviti pravo učitavanje iz lokalnog stora
 
-			return 99.9f;
+			return "99.9";
 		}
 
 		/**
@@ -145,36 +146,11 @@ public class StateFrag extends Fragment {
 		}
 
 		/**
-		 * Dohvaća podatak o stanju enca i vraća ga u FDloat objektu
-		 * 
-		 * @return
-		 */
-		private Float fetchENCState(String page) {
-
-			return 103.75f;
-		}
-
-		private String createPageFromStream(BufferedReader reader) {
-			StringBuilder str = new StringBuilder();
-			String line = null;
-
-			try {
-				while ((line = reader.readLine()) != null) {
-					str.append(line + "\n");
-				}
-			} catch (IOException e) {
-				Log.e(TAG, e.getLocalizedMessage());
-			}
-
-			return str.toString();
-		}
-
-		/**
 		 * Šalje korisnikov username i password i dogvaća stranicu na kojoj je
 		 * stanje
 		 * 
 		 * @param url
-		 * @return html page
+		 * @return ENC state
 		 */
 		public String postLoginData(String url) {
 			String ret = null;
@@ -194,13 +170,17 @@ public class StateFrag extends Fragment {
 				// Execute HTTP Post Request
 				HttpResponse response = httpclient.execute(httppost);
 
-				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
-				ret = createPageFromStream(reader);
+				EncPageParser parser = new EncPageParser(response.getEntity().getContent());
+
+				ret = parser.getEncState();
 
 			} catch (ClientProtocolException e) {
 				Log.e(TAG, e.getLocalizedMessage());
 			} catch (IOException e) {
 				Log.e(TAG, e.getLocalizedMessage());
+			} catch (AuthenticationException e) {
+				// TODO Javiti korisniku da je upisao krivi username i password
+				Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
 			}
 
 			return ret;

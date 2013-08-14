@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+<html>
+<head>
+	
+
+<!-- INIT -->
+<title>HAC Portal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache-control" content="must-revalidate">
+<meta http-equiv="Cache-control" content="max-age=0">
+<link href="css/portal.css" rel="stylesheet" type="text/css">
+<link href="css/basic.css" rel="stylesheet" type="text/css">
+<link href="css/temp.css" rel="stylesheet" type="text/css">
+<link href="css/jquery-ui-1.8.6.custom.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/flowplayer-3.1.4.min.js"></script>
+<script type="text/javascript" src="js/portal.js"></script>
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="js/registered.js"></script>
+<script type="text/javascript" src="js/autocomplete.js"></script>
+
+	<script type="text/javascript" src="js/date_hr.js"></script>
+
+
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/ck/ckeditor.js"></script>
+<!--[if IE 6]>
+	<link href="../portalie6.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+</head>
+<body>
+<div id="header">
+	
+
+<!-- HEADER -->
+<div class="registracijaR"></div>
+<div class="header">
+	<div class="headerImage"><img src="images/pic_logo_topleft_hr.jpg" alt="HAC internet portal"/></div>
+	<div class="headerText"></div>
+	<div class="headerLogin">
+		<form id="logOff" name="logOff" action="/auth_logout.action;jsessionid=BA5D9C3578A5F5775FD9D2E3EAACBCE5" method="post">
+		<ul class="headerLineText">
+			<li>Korisničko ime:</li>
+			<li><b>mladen.cikara</b></li>
+			<li>Naziv partnera:</li>
+			<li style="width: 240px; overflow: hidden; text-align: left;"><b>ČIKARA MLADEN</b></li>
+			<li><input type="submit" id="logOff_logoff" name="logoff" value="Odjava"/>
+</li>
+			<li>Jezik:</li>
+			<li>
+				<select name="selectedJezik" id="logOff_selectedJezik" onchange="javascript: location.href='auth_lang.action?request_locale='+this.value">
+    <option value="hr" selected="selected">Hrvatski</option>
+    <option value="en">English</option>
+
+
+</select>
+
+			</li>
+		</ul>
+		</form>
+
+
+
+
+	</div>
+</div>
+</div>
+<div id="middle">
+	<div class="myBody">
+		
+
+<!-- LEFT MENU -->
+<div class="leftMenu">
+	<div>
+		<h3>Račun</h3>
+		<div>
+			<a id="ajax_racuni_list_reg">Pregled prometa</a>
+			<a id="ajax_racuni_nadoplata_intro">Nadoplata</a>
+			<a id="ajax_ponuda_paketi">Kupovina paketa</a>
+			<a id="ajax_racuni_offers_all">Pregled ponuda</a>
+			<a id="ajax_racuni_report">Izvješća</a>
+		</div>
+	</div>
+
+	<div>
+		<h3>Alati</h3>
+		<div>
+			<a id="ajax_racuni_sredstva_naplate">Mobiteli</a>
+			<a id="ajax_kreditne">Kreditne kartice</a>
+			<a id="ajax_racuni_registracija">Registracijske oznake</a>
+			<a id="ajax_racuni_attributes">Automatizacija dojava</a>
+
+		</div>
+	</div>
+	<div>
+		<h3>Administracija</h3>
+		<div>
+			<a id="ajax_registered_edit_password">Promjena lozinke</a>
+			<a id="ajax_registered_edit">Podaci o korisniku</a>
+			<a id="ajax_partner_view">Podaci o partneru</a>
+			<a id="ajax_racuni_permissions">Korisnička prava</a>
+		</div>
+	</div>
+	<div>
+		<h3>Pomoć</h3>
+		<div>
+			<a id="ajax_i_payment">Upute za nadoplatu</a>
+			<a id="ajax_instructions">Upute za portal</a>
+			<a id="ajax_contact">Kontakt</a>
+		</div>
+	</div>
+	
+		<div class="amex" onclick="window.open('http://www.americanexpress.hr');" ></div>
+		<div class="master" onclick="window.open('http://www.mastercard.com');"></div>
+		<div class="visa" onclick="window.open('http://www.visa.com');"></div>
+		<div class="diners"></div>
+	
+	
+</div>
+<script>bind_menu('leftMenu');</script>
+		<div id="content" class="content">
+			
+
+
+<h1>Pregled prometa</h1>
+<form id="ajax_form43" name="ajax_form43" action="/auth_login.action;jsessionid=BA5D9C3578A5F5775FD9D2E3EAACBCE5" method="post">
+	
+	<input type="hidden" name="query" value="OK" id="ajax_form43_query"/>
+		<ul class="lineText">
+		<li>Vrijeme ispisa od:</li>
+		<li><div class="content_input_date">
+				<div class="demo">
+					<input type="text" name="datumOdStr" value="" id="datepicker" onkeyup="this.value=''"/>
+				</div>
+			</div>
+		</li>
+		<li>do:</li>
+		<li><div class="content_input_date">
+				<div class="demo">
+					<input type="text" name="datumDoStr" value="" id="datepicker2" onkeyup="this.value=''"/>
+				</div>
+			</div>
+		</li>
+		<li><input type="submit" id="ajax_form43_search_thisMonth" name="search.thisMonth" value="Ovaj mjesec" class="nosubmit" onclick="SetMonth(1); this.onsubmit=null;"/>
+</li>
+		<li><input type="submit" id="ajax_form43_search_pastMonth" name="search.pastMonth" value="Pro&scaron;li mjesec" class="nosubmit" onclick="SetMonth(2); this.onsubmit=null; "/>
+</li>
+		<li><input type="submit" id="ajax_form43_delete" name="delete" value="Bri&scaron;i" class="nosubmit" onclick="document.getElementById('datepicker').value=''; document.getElementById('datepicker2').value='';"/>
+</li>
+	</ul>
+</form>
+
+
+
+
+
+<table class="grid" cellpadding="0" cellspacing="0" >
+	<tbody>
+		<tr>
+			<th width="20">&nbsp;</th>
+			<th width="200" align="left">Broj računa</th>
+			<th width="200" align="left">Tip računa</th>
+			<th width="200" align="right">Stanje računa</th>
+			<th width="150" align="right">Pregled prometa</th>
+		</tr>
+		<tr>
+			<td width="20">
+				<a id="expand317091" href="#" onclick="ExpandColapse('expand317091','subRow317091')" class="colapse"></a>
+			</td>
+			<td width="200" align="left">401610011967</td>
+			<td width="200" align="left">Prepaid (ENC)</td>
+			<td width="200" align="right" class="">
+				60,68 HRK</td>
+			<td width="150" align="right" class="printButton">
+				<form id="cajax_form317091" name="cajax_form317091" action="/racuni_payments.action;jsessionid=BA5D9C3578A5F5775FD9D2E3EAACBCE5" target="_blank" method="post">
+					<input type="hidden" name="racun.broj" value="401610011967" id="cajax_form317091_racun_broj"/>
+					<input type="hidden" name="datumOdStr" value=" " id="cajax_form317091_datumOdStr"/>
+					<input type="hidden" name="datumDoStr" value=" " id="cajax_form317091_datumDoStr"/>
+					<input type="submit" id="cajax_form317091_printout" name="printout" value="Ispis" onclick="fillDates('cajax_form317091');"/>
+
+				</form>
+
+
+
+
+			</td>
+		</tr>
+		<tr id="subRow317091">
+			<td colspan="5" align="right">
+				<table class="subgrid" cellpadding="0" cellspacing="0" style="width:400px;">
+					<tbody>
+						<tr>
+							<th width="250" align="left">Broj uređaja</th>
+							<th width="150" align="right">Pregled prolazaka</th>
+
+						</tr>
+						
+						<tr>
+							<td align="left">
+								020001887803
+							</td>
+							<td align="right" class="printButton">
+								<form id="cajax_form_s532995" name="cajax_form_s532995" action="/racuni_transactions.action;jsessionid=BA5D9C3578A5F5775FD9D2E3EAACBCE5" target="_blank" method="post">
+									<input type="hidden" name="sredstvoNaplate.identifikator" value="020001887803" id="cajax_form_s532995_sredstvoNaplate_identifikator"/>
+									<input type="hidden" name="racun.sifra" value="317091" id="cajax_form_s532995_racun_sifra"/>
+									<input type="hidden" name="datumOdStr" value=" " id="cajax_form_s532995_datumOdStr"/>
+									<input type="hidden" name="datumDoStr" value=" " id="cajax_form_s532995_datumDoStr"/>
+									<input type="submit" id="cajax_form_s532995_printout" name="printout" value="Ispis" onclick="fillDates('cajax_form_s532995');"/>
+
+								</form>
+
+
+
+
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<script type="text/javascript">bind_racun(); register_ajax("#ajax_form", "#content"); register_links();</script>
+		</div>
+	</div>
+</div>
+<div id="footer">
+	
+
+<!-- FOOTER -->
+<div class="footer">HAC Portal v1.3.0,Sva prava pridržana</div>
+</div>
+</body>
+</html>

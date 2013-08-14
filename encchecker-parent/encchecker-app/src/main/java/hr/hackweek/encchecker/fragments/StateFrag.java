@@ -17,6 +17,7 @@ import hr.hackweek.encchecker.lib.AuthenticationException;
 import hr.hackweek.encchecker.lib.EncPageParser;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.AndroidHttpClient;
@@ -137,7 +138,14 @@ public class StateFrag extends Fragment {
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 			encState.setText(result);
 
-			// TODO: spremiti vrijednost u settinse
+			saveEncState(result);
+		}
+
+		private void saveEncState(String result) {
+			Editor editor = appSettings.edit();
+			editor.putString(ApplicationConstants.ENC_STAT_PREFERENCES, result);
+
+			editor.commit();
 		}
 
 		/**
@@ -146,9 +154,12 @@ public class StateFrag extends Fragment {
 		 * @return
 		 */
 		private String fetchStoredState() {
-			// TODO napraviti pravo učitavanje iz lokalnog stora
+			String ret = null;
+			if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
+				ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
+			}
 
-			return "99.9";
+			return ret;
 		}
 
 		/**

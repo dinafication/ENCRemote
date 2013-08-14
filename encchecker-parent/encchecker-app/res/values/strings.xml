@@ -8,7 +8,8 @@
     <string name="settings_postavke">Postavke</string>
     <string name="settings_stanje">Stanje</string>
     
-    <string name="enc_stanje_text">ENC stanje:</string>
+    <string name="enc_online_stanje_text">Trenutno stanje ENC-a:</string>
+    <string name="enc_offline_stanje_text">Zadnje poznato stanje ENC-a: (Offline)</string>
     <string name="pomoc_text">POMOĆ</string>
     <string name="postavke_text">POSTAVKE</string>
     <string name="base_url">https://prodaja.hac.hr</string>

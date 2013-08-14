@@ -50,7 +50,7 @@ public class StateFrag extends Fragment {
 		view = inflater.inflate(R.layout.state_frag, container, false);
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
-		offline = (TextView) view.findViewById(R.id.offline_text_view);
+		offline = (TextView) view.findViewById(R.id.enc_stanje_text);
 
 		return view;
 	}
@@ -93,9 +93,9 @@ public class StateFrag extends Fragment {
 
 			online = isOnline();
 			if (online) {
-				toggleOfflineMessage(TextView.INVISIBLE);
+				toggleOfflineMessage(false);
 			} else {
-				toggleOfflineMessage(TextView.VISIBLE);
+				toggleOfflineMessage(true);
 			}
 
 			// Pokrenuti Progress Bar
@@ -109,10 +109,8 @@ public class StateFrag extends Fragment {
 			String response;
 
 			if (online) {
-
 				response = postLoginData(params[0]);
 			} else {
-
 				response = fetchStoredState();
 			}
 
@@ -120,12 +118,16 @@ public class StateFrag extends Fragment {
 		}
 
 		/**
-		 * Parametar treba biti TextView.INVISIBLE ili TextView.VISIBLE
+		 * Parametar treba biti da li je uređaj online ili offline
 		 * 
 		 * @param state
 		 */
-		private void toggleOfflineMessage(int state) {
-			offline.setVisibility(state);
+		private void toggleOfflineMessage(boolean workingOffline) {
+			if (workingOffline) {
+				offline.setText(R.string.enc_offline_stanje_text);
+			} else {
+				offline.setText(R.string.enc_online_stanje_text);
+			}
 		}
 
 		@Override

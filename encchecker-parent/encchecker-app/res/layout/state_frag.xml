@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
-            android:text="@string/enc_stanje_text" />
+            android:text="@string/enc_online_stanje_text" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,13 +59,6 @@
         android:layout_below="@id/enc_stanje"
         android:layout_centerInParent="true"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/offline_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Working Offline!"
-            android:visibility="invisible" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

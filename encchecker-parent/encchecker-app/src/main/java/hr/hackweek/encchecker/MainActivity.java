@@ -33,9 +33,9 @@ public class MainActivity extends FragmentActivity {
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 		if (add)
-			fragmentTransaction.add(id, f);
+			fragmentTransaction.add(id, f).addToBackStack(null);
 		else
-			fragmentTransaction.replace(id, f);
+			fragmentTransaction.replace(id, f).addToBackStack(null);
 		fragmentTransaction.commit();
 	}
 

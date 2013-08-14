@@ -29,7 +29,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class StateFrag extends Fragment {
 
@@ -99,7 +98,7 @@ public class StateFrag extends Fragment {
 			String response;
 
 			if (isOnline()) {
-				response = postLoginData(params[0]);				
+				response = postLoginData(params[0]);
 			} else {
 				response = fetchStoredState();
 			}
@@ -114,7 +113,7 @@ public class StateFrag extends Fragment {
 
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 			encState.setText(result);
-			
+
 			// TODO: spremiti vrijednost u settinse
 		}
 
@@ -179,8 +178,9 @@ public class StateFrag extends Fragment {
 			} catch (IOException e) {
 				Log.e(TAG, e.getLocalizedMessage());
 			} catch (AuthenticationException e) {
-				// TODO Javiti korisniku da je upisao krivi username i password
-				Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+				// TODO: treba korisnika obavijestiti da ima krivi username i
+				// password
+				ret = "NE!";
 			}
 
 			return ret;

@@ -3,34 +3,26 @@ package hr.hackweek.encchecker.fragments;
 import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
-import android.text.method.KeyListener;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-public class PasswordFrag extends Fragment implements OnClickListener{
+public class PasswordFrag extends Fragment implements OnClickListener {
 
 	private View view;
 	private EditText username;
 	private EditText password;
 	private Button postavi;
+	private String errorMessage;
 
 	private SharedPreferences appSettings;
 
@@ -43,15 +35,25 @@ public class PasswordFrag extends Fragment implements OnClickListener{
 
 		username = (EditText) view.findViewById(R.id.username);
 		password = (EditText) view.findViewById(R.id.password);
-		
-		//addTouchLsn();
-		
+
+		// addTouchLsn();
+
 		postavi = (Button) view.findViewById(R.id.button1);
 		postavi.setOnClickListener(this);
 
+		TextView errorTextView = (TextView) view.findViewById(R.id.errorTextView);
+		Bundle b = getArguments();
+		if (b != null) {
+			errorMessage = b.getString(ApplicationConstants.ERROR_MESSAGE);
+			
+			errorTextView.setText(errorMessage);
+			errorTextView.setVisibility(TextView.VISIBLE);
+		}else{
+			errorTextView.setVisibility(TextView.INVISIBLE);
+		}
+
 		return view;
 	}
-
 
 	@Override
 	public void onStart() {
@@ -59,7 +61,7 @@ public class PasswordFrag extends Fragment implements OnClickListener{
 
 		initUsername();
 
-		initPassword();		
+		initPassword();
 	}
 
 	private void initPassword() {
@@ -76,20 +78,20 @@ public class PasswordFrag extends Fragment implements OnClickListener{
 
 	public void onClick(View v) {
 		savePrefferences();
-		
+
 		((MainActivity) getActivity()).setStateFrag(view);
 	}
 
 	private void savePrefferences() {
 		Editor editor = appSettings.edit();
-		
+
 		String uname = username.getText().toString();
 		String pass = password.getText().toString();
-		
+
 		editor.putString(ApplicationConstants.USERNAME_PREFERENCES, uname);
 		editor.putString(ApplicationConstants.PASSWORD_PREFERENCES, pass);
-		
+
 		editor.commit();
-		
+
 	}
 }

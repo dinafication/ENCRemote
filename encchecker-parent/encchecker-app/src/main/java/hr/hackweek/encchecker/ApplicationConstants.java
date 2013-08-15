@@ -5,4 +5,6 @@ public class ApplicationConstants {
 	public static final String USERNAME_PREFERENCES = "UsernamePref";
 	public static final String PASSWORD_PREFERENCES = "PasswordPref";
 	public static final String ENC_STAT_PREFERENCES = "ENCState";
+
+	public static final String ERROR_MESSAGE = "ErrorMessage";
 }

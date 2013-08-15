@@ -3,8 +3,8 @@ package hr.hackweek.encchecker;
 import hr.hackweek.encchecker.fragments.HelpFrag;
 import hr.hackweek.encchecker.fragments.PasswordFrag;
 import hr.hackweek.encchecker.fragments.StateFrag;
+import hr.hackweek.encchecker.fragments.StateFrag.OnAuthenticationExceptionListener;
 import android.app.Activity;
-import android.app.Service;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,9 +14,8 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements OnAuthenticationExceptionListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +65,17 @@ public class MainActivity extends FragmentActivity {
 	public void postavkeClck(View view) {
 		setFragment(new PasswordFrag(), R.id.fragmentViewGroup, false);
 	}
+	
+	public void postavkeClck(View view, String message) {
+		Fragment f = new PasswordFrag();		
+		Bundle b = new Bundle();
+		b.putString(ApplicationConstants.ERROR_MESSAGE, message);
+		
+		f.setArguments(b);
+		
+		//TODO: provjeriti da li bi bolje bilo reusati fragmente
+		setFragment(f, R.id.fragmentViewGroup, false);
+	}
 
 	public void setStateFrag(View view) {
 
@@ -95,5 +105,9 @@ public class MainActivity extends FragmentActivity {
 
         }
     }
+
+	public void onAuthenticationException(String errorMessage) {
+		postavkeClck(null, errorMessage);
+	}
 
 }

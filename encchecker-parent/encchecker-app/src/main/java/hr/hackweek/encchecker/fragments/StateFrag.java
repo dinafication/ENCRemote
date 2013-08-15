@@ -107,7 +107,6 @@ public class StateFrag extends Fragment {
 
 		@Override
 		protected void onPreExecute() {
-			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
 
 			online = isOnline();
 			if (online) {
@@ -124,6 +123,7 @@ public class StateFrag extends Fragment {
 
 		@Override
 		protected String doInBackground(String... params) {
+			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
 			String response;
 
 			if (online) {
@@ -132,6 +132,7 @@ public class StateFrag extends Fragment {
 				response = fetchStoredState();
 			}
 
+			httpclient.close();
 			return response;
 		}
 
@@ -152,8 +153,6 @@ public class StateFrag extends Fragment {
 		protected void onPostExecute(String result) {
 			pb.setEnabled(false);
 			pb.setVisibility(ProgressBar.INVISIBLE);
-
-			httpclient.close();
 
 			// getResources()!=null provjerava da je fragment attachan
 			if (result != null && getResources() != null) {

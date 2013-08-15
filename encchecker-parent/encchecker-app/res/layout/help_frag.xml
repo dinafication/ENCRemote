@@ -16,7 +16,7 @@
             ads:adSize="BANNER"
             ads:adUnitId="a1520ba473ee8eb"
             ads:loadAdOnCreate="true"
-            ads:testDevices="TEST_EMULATOR" />
+            ads:testDevices="TEST_EMULATOR, BF4DAC3E5979DCD3F8AB61D55AC33C8F" />
     </FrameLayout>
 
     <LinearLayout

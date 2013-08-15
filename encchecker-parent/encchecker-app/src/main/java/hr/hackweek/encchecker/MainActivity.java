@@ -5,7 +5,6 @@ import hr.hackweek.encchecker.fragments.PasswordFrag;
 import hr.hackweek.encchecker.fragments.StateFrag;
 import hr.hackweek.encchecker.fragments.StateFrag.OnAuthenticationExceptionListener;
 import android.app.Activity;
-import android.app.Service;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,7 +14,6 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 public class MainActivity extends FragmentActivity implements OnAuthenticationExceptionListener {
 

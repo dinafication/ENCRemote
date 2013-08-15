@@ -155,16 +155,20 @@ public class StateFrag extends Fragment {
 
 			httpclient.close();
 
-			String errorMessage = getResources().getString(R.string.error_message);
-			if (result.length() == 0) {
-				title.setText(R.string.enc_unknown_stanje_text);
-			} else if (result.equals(errorMessage)) {
-				mListener.onAuthenticationException(result);
-			} else {
-				TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
-				encState.setText(result);
+			// getResources()!=null provjerava da je fragment attachan
+			if (result != null && getResources() != null) {
+				String errorMessage = getResources().getString(R.string.error_message);
 
-				saveEncState(result);
+				if (result.length() == 0) {
+					title.setText(R.string.enc_unknown_stanje_text);
+				} else if (result.equals(errorMessage)) {
+					mListener.onAuthenticationException(result);
+				} else {
+					TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
+					encState.setText(result);
+
+					saveEncState(result);
+				}
 			}
 		}
 

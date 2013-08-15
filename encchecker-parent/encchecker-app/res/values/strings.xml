@@ -18,4 +18,8 @@
     <string name="password_label">Lozinka:</string>
     <string name="passwordHint">Lozinka</string>
 
+    <color name="custom_theme_background">#424242</color>
+    <!-- <color name="custom_theme_txtview_background">#D8D8D8</color> -->
+    <color name="custom_theme_txtview_background">#333333</color>
+
 </resources>

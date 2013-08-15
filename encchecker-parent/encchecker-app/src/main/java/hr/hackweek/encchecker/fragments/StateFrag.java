@@ -37,7 +37,7 @@ public class StateFrag extends Fragment {
 	private View view;
 	private ProgressBar pb;
 
-	private TextView offline;
+	private TextView title;
 	private String username;
 	private String password;
 
@@ -50,7 +50,7 @@ public class StateFrag extends Fragment {
 		view = inflater.inflate(R.layout.state_frag, container, false);
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
-		offline = (TextView) view.findViewById(R.id.enc_stanje_text);
+		title = (TextView) view.findViewById(R.id.enc_stanje_text);
 
 		return view;
 	}
@@ -124,9 +124,9 @@ public class StateFrag extends Fragment {
 		 */
 		private void toggleOfflineMessage(boolean workingOffline) {
 			if (workingOffline) {
-				offline.setText(R.string.enc_offline_stanje_text);
+				title.setText(R.string.enc_offline_stanje_text);
 			} else {
-				offline.setText(R.string.enc_online_stanje_text);
+				title.setText(R.string.enc_online_stanje_text);
 			}
 		}
 
@@ -137,10 +137,18 @@ public class StateFrag extends Fragment {
 
 			httpclient.close();
 
-			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
-			encState.setText(result);
+			String errorMessage = getResources().getString(R.string.error_message);
+			if (result.length() == 0) {
+				title.setText(R.string.enc_unknown_stanje_text);
+			}else if(result.equals(errorMessage )){
+				// TODO: zamijeniti s zamjenom ekrana i prikazivanjem dialoga
+				title.setText(R.string.enc_offline_stanje_text);
+			} else {
+				TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
+				encState.setText(result);
 
-			saveEncState(result);
+				saveEncState(result);
+			}
 		}
 
 		private void saveEncState(String result) {
@@ -174,7 +182,7 @@ public class StateFrag extends Fragment {
 			NetworkInfo netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
 			/**
-			 * Vtariti true samo ako je moguće uspostaviti vezu i ako uređaj
+			 * Vratiti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu
 			 */
 			return netInfo.isConnected() && !netInfo.isRoaming();
@@ -214,9 +222,10 @@ public class StateFrag extends Fragment {
 			} catch (IOException e) {
 				Log.e(TAG, e.getLocalizedMessage());
 			} catch (AuthenticationException e) {
-				// TODO: treba korisnika obavijestiti da ima krivi username i
-				// password
-				ret = "NE!";
+
+				// u slučaju da je došlo do greške vraća se string o grešci
+				// greška se mora obraditi u glavnoj dretvi
+				ret = e.getMessage();
 			}
 
 			return ret;

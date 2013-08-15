@@ -3,14 +3,18 @@ package hr.hackweek.encchecker;
 import hr.hackweek.encchecker.fragments.HelpFrag;
 import hr.hackweek.encchecker.fragments.PasswordFrag;
 import hr.hackweek.encchecker.fragments.StateFrag;
+import android.app.Activity;
+import android.app.Service;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 public class MainActivity extends FragmentActivity {
 
@@ -29,9 +33,9 @@ public class MainActivity extends FragmentActivity {
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 		if (add)
-			fragmentTransaction.add(id, f);
+			fragmentTransaction.add(id, f);//.addToBackStack(null);
 		else
-			fragmentTransaction.replace(id, f);
+			fragmentTransaction.replace(id, f).addToBackStack(null);
 		fragmentTransaction.commit();
 	}
 
@@ -58,7 +62,7 @@ public class MainActivity extends FragmentActivity {
 		}
 		return false;
 	}
-
+	
 	public void postavkeClck(View view) {
 		setFragment(new PasswordFrag(), R.id.fragmentViewGroup, false);
 	}
@@ -72,5 +76,24 @@ public class MainActivity extends FragmentActivity {
 	public void pomocClck(View view) {
 		setFragment(new HelpFrag(), R.id.fragmentViewGroup, false);
 	}
+	
+	@Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        hideSoftKeyboard(this);
+
+        return false;
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+
+    	if(activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken()!=null){
+        	
+        InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+
+        }
+    }
 
 }

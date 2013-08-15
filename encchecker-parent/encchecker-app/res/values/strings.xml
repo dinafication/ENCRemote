@@ -3,21 +3,19 @@
 
     <string name="app_name">Maven Quickstart</string>
     <string name="hello">Hello encchecker-app!</string>
-    
     <string name="settings_pomoc">Pomoć</string>
     <string name="settings_postavke">Postavke</string>
     <string name="settings_stanje">Stanje</string>
-    
-    <string name="enc_stanje_text">ENC stanje:</string>
+    <string name="enc_online_stanje_text">Trenutno stanje ENC-a:</string>
+    <string name="enc_offline_stanje_text">Zadnje poznato stanje ENC-a: (Offline)</string>
     <string name="pomoc_text">POMOĆ</string>
     <string name="postavke_text">POSTAVKE</string>
     <string name="base_url">https://prodaja.hac.hr</string>
-    <string name="auth_login">/auth_login.action</string>    
-   
+    <string name="auth_login">/auth_login.action</string>
     <string name="postavi">POSTAVI</string>
     <string name="username_label">Korisničko ime:</string>
     <string name="usernameHint">Korisničko ime</string>
     <string name="password_label">Lozinka:</string>
     <string name="passwordHint">Lozinka</string>
- 
+
 </resources>

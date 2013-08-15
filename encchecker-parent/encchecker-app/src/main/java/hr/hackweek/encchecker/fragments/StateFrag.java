@@ -1,8 +1,6 @@
 package hr.hackweek.encchecker.fragments;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +13,11 @@ import org.apache.http.message.BasicNameValuePair;
 
 import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.R;
-import android.app.ProgressDialog;
+import hr.hackweek.encchecker.lib.AuthenticationException;
+import hr.hackweek.encchecker.lib.EncPageParser;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.AndroidHttpClient;
@@ -28,13 +28,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class StateFrag extends Fragment {
 
 	private final String TAG = "STATE_FRAG";
 	private View view;
-	private ProgressDialog pd;
+	private ProgressBar pb;
+
+	private TextView offline;
+	private String username;
+	private String password;
+
+	private SharedPreferences appSettings;
 
 	private String username;
 	private String password;
@@ -46,6 +53,9 @@ public class StateFrag extends Fragment {
 
 		appSettings = getActivity().getSharedPreferences(ApplicationConstants.PREFERENCES, Context.MODE_PRIVATE);
 		view = inflater.inflate(R.layout.state_frag, container, false);
+
+		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
+		offline = (TextView) view.findViewById(R.id.enc_stanje_text);
 
 		return view;
 	}
@@ -76,31 +86,35 @@ public class StateFrag extends Fragment {
 		}
 	}
 
-	private class DownloadEncStateTask extends AsyncTask<String, Void, Float> {
+	private class DownloadEncStateTask extends AsyncTask<String, Void, String> {
 
 		// Create a new HttpClient and Post Header
 		private AndroidHttpClient httpclient;
+		private boolean online;
 
 		@Override
 		protected void onPreExecute() {
 			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
 
-			pd = new ProgressDialog(view.getContext());
-			pd.setTitle("Processing...");
-			pd.setMessage("Please wait.");
-			pd.setCancelable(false);
-			pd.setIndeterminate(true);
-			pd.show();
+			online = isOnline();
+			if (online) {
+				toggleOfflineMessage(false);
+			} else {
+				toggleOfflineMessage(true);
+			}
+
+			// Pokrenuti Progress Bar
+			pb.setEnabled(true);
+			pb.setIndeterminate(true);
+			pb.setVisibility(ProgressBar.VISIBLE);
 		}
 
 		@Override
-		protected Float doInBackground(String... params) {
-			Float response;
+		protected String doInBackground(String... params) {
+			String response;
 
-			if (isOnline()) {
-				String page = postLoginData(params[0]);
-
-				response = fetchENCState(page);
+			if (online) {
+				response = postLoginData(params[0]);
 			} else {
 				response = fetchStoredState();
 			}
@@ -108,13 +122,37 @@ public class StateFrag extends Fragment {
 			return response;
 		}
 
+		/**
+		 * Parametar treba biti da li je uređaj online ili offline
+		 * 
+		 * @param state
+		 */
+		private void toggleOfflineMessage(boolean workingOffline) {
+			if (workingOffline) {
+				offline.setText(R.string.enc_offline_stanje_text);
+			} else {
+				offline.setText(R.string.enc_online_stanje_text);
+			}
+		}
+
 		@Override
-		protected void onPostExecute(Float result) {
-			pd.dismiss();
+		protected void onPostExecute(String result) {
+			pb.setEnabled(false);
+			pb.setVisibility(ProgressBar.INVISIBLE);
+
 			httpclient.close();
 
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
-			encState.setText(result.toString());
+			encState.setText(result);
+
+			saveEncState(result);
+		}
+
+		private void saveEncState(String result) {
+			Editor editor = appSettings.edit();
+			editor.putString(ApplicationConstants.ENC_STAT_PREFERENCES, result);
+
+			editor.commit();
 		}
 
 		/**
@@ -122,10 +160,13 @@ public class StateFrag extends Fragment {
 		 * 
 		 * @return
 		 */
-		private Float fetchStoredState() {
-			// TODO napraviti pravo učitavanje iz lokalnog stora
+		private String fetchStoredState() {
+			String ret = null;
+			if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
+				ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
+			}
 
-			return 99.9f;
+			return ret;
 		}
 
 		/**
@@ -141,32 +182,7 @@ public class StateFrag extends Fragment {
 			 * Vtariti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu
 			 */
-			return netInfo.isAvailable() && !netInfo.isRoaming();
-		}
-
-		/**
-		 * Dohvaća podatak o stanju enca i vraća ga u FDloat objektu
-		 * 
-		 * @return
-		 */
-		private Float fetchENCState(String page) {
-
-			return 103.75f;
-		}
-
-		private String createPageFromStream(BufferedReader reader) {
-			StringBuilder str = new StringBuilder();
-			String line = null;
-
-			try {
-				while ((line = reader.readLine()) != null) {
-					str.append(line + "\n");
-				}
-			} catch (IOException e) {
-				Log.e(TAG, e.getLocalizedMessage());
-			}
-
-			return str.toString();
+			return netInfo.isConnected() && !netInfo.isRoaming();
 		}
 
 		/**
@@ -174,7 +190,7 @@ public class StateFrag extends Fragment {
 		 * stanje
 		 * 
 		 * @param url
-		 * @return html page
+		 * @return ENC state
 		 */
 		public String postLoginData(String url) {
 			String ret = null;
@@ -194,13 +210,18 @@ public class StateFrag extends Fragment {
 				// Execute HTTP Post Request
 				HttpResponse response = httpclient.execute(httppost);
 
-				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
-				ret = createPageFromStream(reader);
+				EncPageParser parser = new EncPageParser(response.getEntity().getContent());
+
+				ret = parser.getEncState();
 
 			} catch (ClientProtocolException e) {
 				Log.e(TAG, e.getLocalizedMessage());
 			} catch (IOException e) {
 				Log.e(TAG, e.getLocalizedMessage());
+			} catch (AuthenticationException e) {
+				// TODO: treba korisnika obavijestiti da ima krivi username i
+				// password
+				ret = "NE!";
 			}
 
 			return ret;

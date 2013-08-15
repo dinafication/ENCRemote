@@ -17,6 +17,7 @@ import hr.hackweek.encchecker.lib.AuthenticationException;
 import hr.hackweek.encchecker.lib.EncPageParser;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.AndroidHttpClient;
@@ -49,7 +50,7 @@ public class StateFrag extends Fragment {
 		view = inflater.inflate(R.layout.state_frag, container, false);
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
-		offline = (TextView) view.findViewById(R.id.offline_text_view);
+		offline = (TextView) view.findViewById(R.id.enc_stanje_text);
 
 		return view;
 	}
@@ -92,9 +93,9 @@ public class StateFrag extends Fragment {
 
 			online = isOnline();
 			if (online) {
-				toggleOfflineMessage(TextView.INVISIBLE);
+				toggleOfflineMessage(false);
 			} else {
-				toggleOfflineMessage(TextView.VISIBLE);
+				toggleOfflineMessage(true);
 			}
 
 			// Pokrenuti Progress Bar
@@ -108,10 +109,8 @@ public class StateFrag extends Fragment {
 			String response;
 
 			if (online) {
-
 				response = postLoginData(params[0]);
 			} else {
-
 				response = fetchStoredState();
 			}
 
@@ -119,12 +118,16 @@ public class StateFrag extends Fragment {
 		}
 
 		/**
-		 * Parametar treba biti TextView.INVISIBLE ili TextView.VISIBLE
+		 * Parametar treba biti da li je uređaj online ili offline
 		 * 
 		 * @param state
 		 */
-		private void toggleOfflineMessage(int state) {
-			offline.setVisibility(state);
+		private void toggleOfflineMessage(boolean workingOffline) {
+			if (workingOffline) {
+				offline.setText(R.string.enc_offline_stanje_text);
+			} else {
+				offline.setText(R.string.enc_online_stanje_text);
+			}
 		}
 
 		@Override
@@ -137,7 +140,14 @@ public class StateFrag extends Fragment {
 			TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 			encState.setText(result);
 
-			// TODO: spremiti vrijednost u settinse
+			saveEncState(result);
+		}
+
+		private void saveEncState(String result) {
+			Editor editor = appSettings.edit();
+			editor.putString(ApplicationConstants.ENC_STAT_PREFERENCES, result);
+
+			editor.commit();
 		}
 
 		/**
@@ -146,9 +156,12 @@ public class StateFrag extends Fragment {
 		 * @return
 		 */
 		private String fetchStoredState() {
-			// TODO napraviti pravo učitavanje iz lokalnog stora
+			String ret = null;
+			if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
+				ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
+			}
 
-			return "99.9";
+			return ret;
 		}
 
 		/**

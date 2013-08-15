@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -7,13 +8,16 @@
     <FrameLayout
         android:id="@+id/state_oglasi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="@dimen/ad_layout_height" >
 
-        <TextView
-            android:id="@+id/state_oglasi_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="oglasi" />
+        <com.google.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="a1520ba473ee8eb"
+            ads:loadAdOnCreate="true"
+            ads:testDevices="TEST_EMULATOR" />
     </FrameLayout>
 
     <RelativeLayout
@@ -31,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
-            android:text="@string/enc_stanje_text" />
+            android:text="@string/enc_online_stanje_text" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,13 +63,6 @@
         android:layout_below="@id/enc_stanje"
         android:layout_centerInParent="true"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/offline_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Working Offline!"
-            android:visibility="invisible" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

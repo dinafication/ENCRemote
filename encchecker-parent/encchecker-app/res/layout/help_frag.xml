@@ -7,7 +7,7 @@
     <FrameLayout
         android:id="@+id/state_oglasi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="@dimen/ad_layout_height" >
 
         <com.google.ads.AdView
             android:id="@+id/adView"
@@ -16,8 +16,7 @@
             ads:adSize="BANNER"
             ads:adUnitId="a1520ba473ee8eb"
             ads:loadAdOnCreate="true"
-            ads:testDevices="TEST_EMULATOR" >
-        </com.google.ads.AdView>
+            ads:testDevices="TEST_EMULATOR" />
     </FrameLayout>
 
     <LinearLayout

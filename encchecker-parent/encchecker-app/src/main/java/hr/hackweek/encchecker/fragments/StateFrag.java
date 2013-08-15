@@ -15,6 +15,7 @@ import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.R;
 import hr.hackweek.encchecker.lib.AuthenticationException;
 import hr.hackweek.encchecker.lib.EncPageParser;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -42,6 +43,23 @@ public class StateFrag extends Fragment {
 	private String password;
 
 	private SharedPreferences appSettings;
+
+	private OnAuthenticationExceptionListener mListener;
+
+	public interface OnAuthenticationExceptionListener {
+		public void onAuthenticationException(String errorMessage);
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+
+		try {
+			mListener = (OnAuthenticationExceptionListener) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString() + " must implement onAuthenticationException");
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -140,9 +158,8 @@ public class StateFrag extends Fragment {
 			String errorMessage = getResources().getString(R.string.error_message);
 			if (result.length() == 0) {
 				title.setText(R.string.enc_unknown_stanje_text);
-			}else if(result.equals(errorMessage )){
-				// TODO: zamijeniti s zamjenom ekrana i prikazivanjem dialoga
-				title.setText(R.string.enc_offline_stanje_text);
+			} else if (result.equals(errorMessage)) {
+				mListener.onAuthenticationException(result);
 			} else {
 				TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 				encState.setText(result);

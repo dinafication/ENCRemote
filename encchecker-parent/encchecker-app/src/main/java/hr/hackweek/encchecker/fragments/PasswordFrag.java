@@ -25,12 +25,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class PasswordFrag extends Fragment implements OnClickListener{
+public class PasswordFrag extends Fragment implements OnClickListener {
 
 	private View view;
 	private EditText username;
 	private EditText password;
 	private Button postavi;
+	private String errorMessage;
 
 	private SharedPreferences appSettings;
 
@@ -43,15 +44,17 @@ public class PasswordFrag extends Fragment implements OnClickListener{
 
 		username = (EditText) view.findViewById(R.id.username);
 		password = (EditText) view.findViewById(R.id.password);
-		
-		//addTouchLsn();
-		
+
+		// addTouchLsn();
+
 		postavi = (Button) view.findViewById(R.id.button1);
 		postavi.setOnClickListener(this);
+		
+		Bundle b = getArguments();
+		errorMessage = b.getString(ApplicationConstants.ERROR_MESSAGE);
 
 		return view;
 	}
-
 
 	@Override
 	public void onStart() {
@@ -59,7 +62,7 @@ public class PasswordFrag extends Fragment implements OnClickListener{
 
 		initUsername();
 
-		initPassword();		
+		initPassword();
 	}
 
 	private void initPassword() {
@@ -76,20 +79,20 @@ public class PasswordFrag extends Fragment implements OnClickListener{
 
 	public void onClick(View v) {
 		savePrefferences();
-		
+
 		((MainActivity) getActivity()).setStateFrag(view);
 	}
 
 	private void savePrefferences() {
 		Editor editor = appSettings.edit();
-		
+
 		String uname = username.getText().toString();
 		String pass = password.getText().toString();
-		
+
 		editor.putString(ApplicationConstants.USERNAME_PREFERENCES, uname);
 		editor.putString(ApplicationConstants.PASSWORD_PREFERENCES, pass);
-		
+
 		editor.commit();
-		
+
 	}
 }

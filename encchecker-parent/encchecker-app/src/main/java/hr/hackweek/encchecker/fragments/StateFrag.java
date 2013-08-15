@@ -43,11 +43,6 @@ public class StateFrag extends Fragment {
 
 	private SharedPreferences appSettings;
 
-	private String username;
-	private String password;
-
-	private SharedPreferences appSettings;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

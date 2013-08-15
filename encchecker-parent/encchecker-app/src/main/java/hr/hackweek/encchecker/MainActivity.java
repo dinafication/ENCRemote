@@ -17,6 +17,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 public class MainActivity extends FragmentActivity {
+	
+	private int counter = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class MainActivity extends FragmentActivity {
 	private void setFragment(Fragment f, int id, boolean add) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
+		
 		if (add)
 			fragmentTransaction.add(id, f);//.addToBackStack(null);
 		else

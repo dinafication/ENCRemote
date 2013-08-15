@@ -16,8 +16,7 @@
             ads:adSize="BANNER"
             ads:adUnitId="a1520ba473ee8eb"
             ads:loadAdOnCreate="true"
-            ads:testDevices="TEST_EMULATOR" >
-        </com.google.ads.AdView>
+            ads:testDevices="TEST_EMULATOR" />
     </FrameLayout>
 
     <LinearLayout

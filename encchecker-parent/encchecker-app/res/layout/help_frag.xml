@@ -17,4 +17,16 @@
             android:text="TODO HELP......tralalalllllarewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" />
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/btn_stanje_nahelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="114dp"
+        android:layout_marginLeft="56dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/stanje_color_1"
+        android:text="@string/pomoc_text" />
+
 </RelativeLayout>

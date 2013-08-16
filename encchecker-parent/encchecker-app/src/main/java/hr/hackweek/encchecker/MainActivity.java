@@ -30,45 +30,9 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		mTabHost = (FragmentTabHost) findViewById(R.id.fragmentViewGroup);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
 
-		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5)), PasswordFrag.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5)), PasswordFrag.class, new Bundle());
 		mTabHost.addTab(mTabHost.newTabSpec("state").setIndicator("Stanje", getResources().getDrawable(R.drawable.money3)), StateFrag.class, null);
-		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2)), HelpFrag.class, null);	
-	}
-
-	private void setFragment(Fragment f, int id, boolean add) {
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-		if (add)
-			fragmentTransaction.add(id, f);// .addToBackStack(null);
-		else
-			fragmentTransaction.replace(id, f).addToBackStack(null);
-		fragmentTransaction.commit();
-	}
-
-	public void postavkeClck(View view) {
-		setFragment(new PasswordFrag(), R.id.fragmentViewGroup, false);
-	}
-
-	public void postavkeClck(View view, String message) {
-		Fragment f = new PasswordFrag();
-		Bundle b = new Bundle();
-		b.putString(ApplicationConstants.ERROR_MESSAGE, message);
-
-		f.setArguments(b);
-
-		// TODO: provjeriti da li bi bolje bilo reusati fragmente
-		setFragment(f, R.id.fragmentViewGroup, false);
-	}
-
-	public void setStateFrag(View view) {
-
-		// TODO spremiti user i pass
-		setFragment(new StateFrag(), R.id.fragmentViewGroup, false);
-	}
-
-	public void pomocClck(View view) {
-		setFragment(new HelpFrag(), R.id.fragmentViewGroup, false);
+		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2)), HelpFrag.class, null);
 	}
 	
 
@@ -100,7 +64,18 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 	}
 
 	public void onAuthenticationException(String errorMessage) {
-		postavkeClck(null, errorMessage);
+		Fragment f = getSupportFragmentManager().findFragmentByTag("settings");
+		Bundle b = f.getArguments();
+		b.putString(ApplicationConstants.ERROR_MESSAGE, errorMessage);
+
+//		f.setArguments(b);
+
+		mTabHost.setCurrentTabByTag("settings");
+
+	}
+
+	public void setStateFrag() {
+		mTabHost.setCurrentTabByTag("state");
 	}
 
 }

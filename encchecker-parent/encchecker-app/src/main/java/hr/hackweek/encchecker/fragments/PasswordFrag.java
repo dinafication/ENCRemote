@@ -41,17 +41,6 @@ public class PasswordFrag extends Fragment implements OnClickListener {
 		postavi = (Button) view.findViewById(R.id.button1);
 		postavi.setOnClickListener(this);
 
-		TextView errorTextView = (TextView) view.findViewById(R.id.errorTextView);
-		Bundle b = getArguments();
-		if (b != null) {
-			errorMessage = b.getString(ApplicationConstants.ERROR_MESSAGE);
-			
-			errorTextView.setText(errorMessage);
-			errorTextView.setVisibility(TextView.VISIBLE);
-		}else{
-			errorTextView.setVisibility(TextView.INVISIBLE);
-		}
-
 		return view;
 	}
 
@@ -59,9 +48,24 @@ public class PasswordFrag extends Fragment implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 
+		checkErrorMessage();
+
 		initUsername();
 
 		initPassword();
+	}
+
+	private void checkErrorMessage() {
+		TextView errorTextView = (TextView) view.findViewById(R.id.errorTextView);
+		Bundle b = getArguments();
+		if (b != null) {
+			errorMessage = b.getString(ApplicationConstants.ERROR_MESSAGE);
+
+			errorTextView.setText(errorMessage);
+			errorTextView.setVisibility(TextView.VISIBLE);
+		} else {
+			errorTextView.setVisibility(TextView.INVISIBLE);
+		}
 	}
 
 	private void initPassword() {
@@ -78,8 +82,8 @@ public class PasswordFrag extends Fragment implements OnClickListener {
 
 	public void onClick(View v) {
 		savePrefferences();
-
-		((MainActivity) getActivity()).setStateFrag(view);
+	
+		((MainActivity) getActivity()).setStateFrag();
 	}
 
 	private void savePrefferences() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Maven Quickstart</string>
+    <string name="app_name">ENC Provjera</string>
     <string name="hello">Hello encchecker-app!</string>
     <string name="settings_pomoc">Pomoć</string>
     <string name="settings_postavke">Postavke</string>

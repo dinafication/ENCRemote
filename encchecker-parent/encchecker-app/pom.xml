@@ -32,8 +32,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.google.android</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>r6</version>
+			<artifactId>android-support</artifactId>
+			<version>v4</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/android-support-v4.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.google</groupId>
@@ -79,7 +81,7 @@
 				<artifactId>android-maven-plugin</artifactId>
 				<configuration>
 					<sdk>
-						<platform>16</platform>
+						<platform>18</platform>
 					</sdk>
 				</configuration>
 			</plugin>

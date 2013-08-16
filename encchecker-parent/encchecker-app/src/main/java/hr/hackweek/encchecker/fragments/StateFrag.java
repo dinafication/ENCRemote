@@ -205,7 +205,7 @@ public class StateFrag extends Fragment {
 			 * Vratiti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu
 			 */
-			return netInfo.isConnected() && !netInfo.isRoaming();
+			return netInfo.isAvailable() && !netInfo.isRoaming();
 		}
 
 		/**

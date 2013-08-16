@@ -29,8 +29,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+
+import android.view.animation.AnimationUtils;
 
 public class StateFrag extends Fragment {
 
@@ -60,7 +69,20 @@ public class StateFrag extends Fragment {
 			throw new ClassCastException(activity.toString() + " must implement onAuthenticationException");
 		}
 	}
+	
+	private void setAnimation(){
+		Animation spinin = AnimationUtils.loadAnimation(getActivity(), R.anim.custom_anim);
+		LayoutAnimationController controller = new LayoutAnimationController(
+				spinin);
+		controller.setOrder(LayoutAnimationController.ORDER_RANDOM);
+		ImageButton refresher = (ImageButton) view.findViewById(R.id.refresher);
+		
+		refresher.setAnimation(spinin);
+		spinin.setDuration(4000);
+		spinin.start();
+		}
 
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -69,7 +91,7 @@ public class StateFrag extends Fragment {
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
-
+		 setAnimation();
 		return view;
 	}
 

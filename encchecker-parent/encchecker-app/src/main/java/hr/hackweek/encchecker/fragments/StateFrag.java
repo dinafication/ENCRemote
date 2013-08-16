@@ -126,7 +126,7 @@ public class StateFrag extends Fragment {
 	private void loadPreferences() {
 
 		if (appSettings.contains(ApplicationConstants.USERNAME_PREFERENCES)) {
-			username = appSettings.getString(ApplicationConstants.USERNAME_PREFERENCES, "");
+			username = "";appSettings.getString(ApplicationConstants.USERNAME_PREFERENCES, "");
 		}
 
 		if (appSettings.contains(ApplicationConstants.PASSWORD_PREFERENCES)) {
@@ -143,6 +143,8 @@ public class StateFrag extends Fragment {
 		@Override
 		protected void onPreExecute() {
 			startAnimation();
+			
+			
 			online = isOnline();
 			if (online) {
 				toggleOfflineMessage(false);

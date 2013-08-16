@@ -29,15 +29,10 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 
 		mTabHost = (FragmentTabHost) findViewById(R.id.fragmentViewGroup);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
-		
-		
+
 		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5)), PasswordFrag.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec("state").setIndicator("Stanje", getResources().getDrawable(R.drawable.money3)), StateFrag.class, null);
-		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2)), HelpFrag.class, null);
-	
-
-		// setFragment(new StateFrag(), R.id.fragmentViewGroup, true);
-
+		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2)), HelpFrag.class, null);	
 	}
 
 	private void setFragment(Fragment f, int id, boolean add) {
@@ -49,30 +44,6 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		else
 			fragmentTransaction.replace(id, f).addToBackStack(null);
 		fragmentTransaction.commit();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(hr.hackweek.encchecker.R.menu.main, menu);
-		return true;
-	}
-
-	public boolean onOptionsItemSelected(android.view.MenuItem item) {
-
-		switch (item.getItemId()) {
-		case R.id.settings1_postavke:
-			setFragment(new PasswordFrag(), R.id.fragmentViewGroup, false);
-			break;
-		case R.id.settings2_stanje:
-			setFragment(new StateFrag(), R.id.fragmentViewGroup, false);
-
-			break;
-		case R.id.settings3_pomoc:
-			setFragment(new HelpFrag(), R.id.fragmentViewGroup, false); // TODO
-			break;
-		}
-		return false;
 	}
 
 	public void postavkeClck(View view) {

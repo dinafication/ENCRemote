@@ -1,5 +1,5 @@
 <resources>
 
-    <dimen name="ad_layout_height">100dp</dimen>
+    <dimen name="ad_layout_height">200px</dimen>
 
 </resources>

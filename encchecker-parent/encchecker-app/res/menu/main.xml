@@ -4,7 +4,8 @@
         android:id="@+id/settings1_postavke"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/settings_postavke"/>
+        android:title="@string/settings_postavke"
+        android:icon="@drawable/user_80"/>
     
     <item
         android:id="@+id/settings2_stanje"
@@ -17,7 +18,8 @@
         android:id="@+id/settings3_pomoc"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/settings_pomoc"/>
+        android:title="@string/settings_pomoc"
+        android:icon="@drawable/support_80"/>
     
     
 

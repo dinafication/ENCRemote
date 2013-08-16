@@ -70,17 +70,22 @@ public class StateFrag extends Fragment {
 		}
 	}
 	
+	private Animation spinin;
+	
 	private void setAnimation(){
-		Animation spinin = AnimationUtils.loadAnimation(getActivity(), R.anim.custom_anim);
+		spinin = AnimationUtils.loadAnimation(getActivity(), R.anim.custom_anim);
 		LayoutAnimationController controller = new LayoutAnimationController(
 				spinin);
 		controller.setOrder(LayoutAnimationController.ORDER_RANDOM);
 		ImageButton refresher = (ImageButton) view.findViewById(R.id.refresher);
 		
 		refresher.setAnimation(spinin);
-		spinin.setDuration(4000);
-		spinin.start();
+		
 		}
+	
+	private void startAnimation(){
+		spinin.start();
+	}
 
 	
 	@Override
@@ -91,7 +96,8 @@ public class StateFrag extends Fragment {
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
-		 setAnimation();
+		 
+		setAnimation();
 		return view;
 	}
 
@@ -101,6 +107,11 @@ public class StateFrag extends Fragment {
 
 		loadPreferences();
 
+		fetchUrl();
+	}
+	
+	
+	public void fetchUrl(){
 		DownloadEncStateTask dest = new DownloadEncStateTask();
 
 		StringBuilder url = new StringBuilder();
@@ -109,7 +120,9 @@ public class StateFrag extends Fragment {
 
 		dest.execute(new String[] { url.toString() });
 	}
-
+	
+	
+	
 	private void loadPreferences() {
 
 		if (appSettings.contains(ApplicationConstants.USERNAME_PREFERENCES)) {
@@ -129,7 +142,7 @@ public class StateFrag extends Fragment {
 
 		@Override
 		protected void onPreExecute() {
-
+			startAnimation();
 			online = isOnline();
 			if (online) {
 				toggleOfflineMessage(false);
@@ -191,6 +204,8 @@ public class StateFrag extends Fragment {
 					saveEncState(result);
 				}
 			}
+			
+			spinin.cancel();
 		}
 
 		private void saveEncState(String result) {

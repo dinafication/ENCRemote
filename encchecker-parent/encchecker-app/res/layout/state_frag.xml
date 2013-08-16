@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/refresh2"                
             android:background="@android:color/transparent"
+            android:onClick="refresherClck"
                 android:contentDescription="Refresh" />
         </LinearLayout>
     </RelativeLayout>

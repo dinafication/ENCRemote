@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TabHost.TabSpec;
 
 public class MainActivity extends FragmentActivity implements OnAuthenticationExceptionListener {
 
@@ -28,10 +29,12 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 
 		mTabHost = (FragmentTabHost) findViewById(R.id.fragmentViewGroup);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
-
+		
+		
 		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5)), PasswordFrag.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec("state").setIndicator("Stanje", getResources().getDrawable(R.drawable.money3)), StateFrag.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2)), HelpFrag.class, null);
+	
 
 		// setFragment(new StateFrag(), R.id.fragmentViewGroup, true);
 
@@ -95,6 +98,15 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 
 	public void pomocClck(View view) {
 		setFragment(new HelpFrag(), R.id.fragmentViewGroup, false);
+	}
+	
+
+	public void refresherClck(View view) {
+		StateFrag sf = (StateFrag) getSupportFragmentManager().findFragmentByTag("state");
+//        .findFragmentById(R.id.st));
+//		mTabHost.getCurrentTabView().getf;
+//		mTabHost.getCurrentView();
+		sf.fetchUrl();
 	}
 
 	@Override

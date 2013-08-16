@@ -2,5 +2,6 @@
 <resources>
 
     <string name="username_label">Korisničko ime: (small)</string>
+    <string name="ad_size">BANNER</string>
 
 </resources>

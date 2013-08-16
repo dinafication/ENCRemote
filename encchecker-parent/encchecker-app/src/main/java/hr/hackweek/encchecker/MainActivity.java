@@ -47,18 +47,18 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		hideSoftKeyboard(this);
+		hideSoftKeyboard();
 
 		return false;
 	}
 
-	public static void hideSoftKeyboard(Activity activity) {
+	public  void hideSoftKeyboard() {
 
-		if (activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null) {
+		if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
 
-			InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+			InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 
-			inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+			inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
 		}
 	}

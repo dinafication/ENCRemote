@@ -12,6 +12,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
 import hr.hackweek.encchecker.ApplicationConstants;
+import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
 import hr.hackweek.encchecker.lib.AuthenticationException;
 import hr.hackweek.encchecker.lib.EncPageParser;
@@ -22,6 +23,7 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.AndroidHttpClient;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -97,13 +99,15 @@ public class StateFrag extends Fragment {
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
 		 
-		setAnimation();
+		//setAnimation();
 		return view;
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
+		
+		((MainActivity)getActivity()).hideSoftKeyboard();
 
 		loadPreferences();
 
@@ -126,7 +130,7 @@ public class StateFrag extends Fragment {
 	private void loadPreferences() {
 
 		if (appSettings.contains(ApplicationConstants.USERNAME_PREFERENCES)) {
-			username = "";appSettings.getString(ApplicationConstants.USERNAME_PREFERENCES, "");
+			username = appSettings.getString(ApplicationConstants.USERNAME_PREFERENCES, "");
 		}
 
 		if (appSettings.contains(ApplicationConstants.PASSWORD_PREFERENCES)) {
@@ -140,10 +144,12 @@ public class StateFrag extends Fragment {
 		private AndroidHttpClient httpclient;
 		private boolean online;
 
+		ImageButton refresher;
 		@Override
 		protected void onPreExecute() {
-			startAnimation();
-			
+			//startAnimation();
+			refresher = (ImageButton) view.findViewById(R.id.refresher);
+			refresher.setVisibility(View.INVISIBLE);
 			
 			online = isOnline();
 			if (online) {
@@ -207,7 +213,8 @@ public class StateFrag extends Fragment {
 				}
 			}
 			
-			spinin.cancel();
+			//spinin.cancel();
+			refresher.setVisibility(View.VISIBLE);
 		}
 
 		private void saveEncState(String result) {
@@ -243,8 +250,8 @@ public class StateFrag extends Fragment {
 			/**
 			 * Vratiti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu
-			 */
-			return netInfo.isConnected() && !netInfo.isRoaming();
+			  */
+			return true; //netInfo.isConnected() && !netInfo.isRoaming();
 		}
 
 		/**

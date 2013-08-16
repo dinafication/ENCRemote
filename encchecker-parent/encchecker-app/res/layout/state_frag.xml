@@ -50,10 +50,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="rfrsh" />
+                android:src="@drawable/refresh2"                
+            android:background="@android:color/transparent"
+                android:contentDescription="Refresh" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -81,19 +83,24 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_postavke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="postavkeClck"
-            android:text="@string/postavke_text" />
+            android:text="@string/postavke_text"
+            
+            android:src="@drawable/user13"
+            android:background="@android:color/transparent"  />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_pomoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="pomocClck"
-            android:text="@string/pomoc_text" />
+            android:text="@string/pomoc_text"
+            android:src="@drawable/help5color"
+            android:background="@android:color/transparent" />
     </LinearLayout>
 
 </RelativeLayout>

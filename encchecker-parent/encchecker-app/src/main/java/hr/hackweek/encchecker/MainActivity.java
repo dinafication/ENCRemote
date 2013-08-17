@@ -30,9 +30,9 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		mTabHost = (FragmentTabHost) findViewById(R.id.fragmentViewGroup);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
 
-		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5)), PasswordFrag.class, new Bundle());
-		mTabHost.addTab(mTabHost.newTabSpec("state").setIndicator("Stanje", getResources().getDrawable(R.drawable.money3)), StateFrag.class, null);
-		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2)), HelpFrag.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5_light)), PasswordFrag.class, new Bundle());
+		mTabHost.addTab(mTabHost.newTabSpec("state").setIndicator("Stanje", getResources().getDrawable(R.drawable.money3_light)), StateFrag.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2_light)), HelpFrag.class, null);
 	}
 	
 

@@ -22,7 +22,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="Refresh"
             android:onClick="refresherClck"
-            android:src="@drawable/refresh2" />
+            android:src="@drawable/refresh3" />
 
         <TextView
             android:id="@+id/enc_stanje_text"

@@ -1,5 +1,6 @@
 package hr.hackweek.encchecker.fragments;
 
+import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,5 +18,11 @@ private View view;
 		view = inflater.inflate(R.layout.help_frag, container, false);
 		return view;
 	}
+	
+	@Override
+		public void onStart() {
+			super.onStart();
+			((MainActivity)getActivity()).hideSoftKeyboard();
+		}
 	
 }

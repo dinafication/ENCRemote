@@ -12,6 +12,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
 import hr.hackweek.encchecker.ApplicationConstants;
+import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
 import hr.hackweek.encchecker.lib.AuthenticationException;
 import hr.hackweek.encchecker.lib.EncPageParser;
@@ -22,6 +23,7 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.AndroidHttpClient;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,8 +31,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+
+import android.view.animation.AnimationUtils;
 
 public class StateFrag extends Fragment {
 
@@ -60,7 +71,25 @@ public class StateFrag extends Fragment {
 			throw new ClassCastException(activity.toString() + " must implement onAuthenticationException");
 		}
 	}
+	
+	private Animation spinin;
+	
+	private void setAnimation(){
+		spinin = AnimationUtils.loadAnimation(getActivity(), R.anim.custom_anim);
+		LayoutAnimationController controller = new LayoutAnimationController(
+				spinin);
+		controller.setOrder(LayoutAnimationController.ORDER_RANDOM);
+		ImageButton refresher = (ImageButton) view.findViewById(R.id.refresher);
+		
+		refresher.setAnimation(spinin);
+		
+		}
+	
+	private void startAnimation(){
+		spinin.start();
+	}
 
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -69,16 +98,24 @@ public class StateFrag extends Fragment {
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
-
+		 
+		//setAnimation();
 		return view;
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
+		
+		((MainActivity)getActivity()).hideSoftKeyboard();
 
 		loadPreferences();
 
+		fetchUrl();
+	}
+	
+	
+	public void fetchUrl(){
 		DownloadEncStateTask dest = new DownloadEncStateTask();
 
 		StringBuilder url = new StringBuilder();
@@ -87,7 +124,9 @@ public class StateFrag extends Fragment {
 
 		dest.execute(new String[] { url.toString() });
 	}
-
+	
+	
+	
 	private void loadPreferences() {
 
 		if (appSettings.contains(ApplicationConstants.USERNAME_PREFERENCES)) {
@@ -105,9 +144,13 @@ public class StateFrag extends Fragment {
 		private AndroidHttpClient httpclient;
 		private boolean online;
 
+		ImageButton refresher;
 		@Override
 		protected void onPreExecute() {
-
+			//startAnimation();
+			refresher = (ImageButton) view.findViewById(R.id.refresher);
+			refresher.setVisibility(View.INVISIBLE);
+			
 			online = isOnline();
 			if (online) {
 				toggleOfflineMessage(false);
@@ -169,6 +212,9 @@ public class StateFrag extends Fragment {
 					saveEncState(result);
 				}
 			}
+			
+			//spinin.cancel();
+			refresher.setVisibility(View.VISIBLE);
 		}
 
 		private void saveEncState(String result) {

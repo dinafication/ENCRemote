@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TabHost.TabSpec;
 
 public class MainActivity extends FragmentActivity implements OnAuthenticationExceptionListener {
 
@@ -29,26 +30,35 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		mTabHost = (FragmentTabHost) findViewById(R.id.fragmentViewGroup);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
 
-		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5)), PasswordFrag.class, new Bundle());
-		mTabHost.addTab(mTabHost.newTabSpec("state").setIndicator("Stanje", getResources().getDrawable(R.drawable.money3)), StateFrag.class, null);
-		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2)), HelpFrag.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5_light)), PasswordFrag.class, new Bundle());
+		mTabHost.addTab(mTabHost.newTabSpec("state").setIndicator("Stanje", getResources().getDrawable(R.drawable.money3_light)), StateFrag.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2_light)), HelpFrag.class, null);
+	}
+	
+
+	public void refresherClck(View view) {
+		StateFrag sf = (StateFrag) getSupportFragmentManager().findFragmentByTag("state");
+//        .findFragmentById(R.id.st));
+//		mTabHost.getCurrentTabView().getf;
+//		mTabHost.getCurrentView();
+		sf.fetchUrl();
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		hideSoftKeyboard(this);
+		hideSoftKeyboard();
 
 		return false;
 	}
 
-	public static void hideSoftKeyboard(Activity activity) {
+	public  void hideSoftKeyboard() {
 
-		if (activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null) {
+		if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
 
-			InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+			InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 
-			inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+			inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
 		}
 	}

@@ -1,0 +1,1 @@
+Pri prvom importu projekta treba pokrenuti mvn clean -P install-missing-dependencies

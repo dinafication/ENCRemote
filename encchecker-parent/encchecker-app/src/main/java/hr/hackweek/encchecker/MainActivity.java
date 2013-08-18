@@ -8,14 +8,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TabHost.TabSpec;
 
 public class MainActivity extends FragmentActivity implements OnAuthenticationExceptionListener {
 
@@ -41,7 +37,7 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 //        .findFragmentById(R.id.st));
 //		mTabHost.getCurrentTabView().getf;
 //		mTabHost.getCurrentView();
-		sf.fetchUrl();
+//		sf.fetchUrl();
 	}
 
 	@Override
@@ -67,8 +63,6 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		Fragment f = getSupportFragmentManager().findFragmentByTag("settings");
 		Bundle b = f.getArguments();
 		b.putString(ApplicationConstants.ERROR_MESSAGE, errorMessage);
-
-//		f.setArguments(b);
 
 		mTabHost.setCurrentTabByTag("settings");
 

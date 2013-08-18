@@ -41,4 +41,21 @@ public class EncPageParserTest {
 		}
 
 	}
+	
+	@Test
+	public void testNoUsernameException() throws IOException {
+		InputStream is = this.getClass().getResourceAsStream("/nousername.html");
+
+		EncPageParser epp = new EncPageParser(is);
+
+		try {
+			epp.getEncState();
+			fail("Nije izbacio exception");
+		} catch (AuthenticationException e) {
+			assertEquals("Niste unijeli podatke za pristup privatnom dijelu portala.", e.getLocalizedMessage());
+		} catch (IOException e) {
+			fail("IOException");
+		}
+
+	}
 }

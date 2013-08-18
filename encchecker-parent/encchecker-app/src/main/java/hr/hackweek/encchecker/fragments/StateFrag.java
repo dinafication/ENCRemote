@@ -193,11 +193,12 @@ public class StateFrag extends Fragment {
 
 			// getResources()!=null provjerava da je fragment attachan
 			if (result != null && getResources() != null) {
-				String errorMessage = getResources().getString(R.string.error_message);
+				String errorNoDataMessage = getResources().getString(R.string.error_no_data_message);
+				String errorWrongDataMessage = getResources().getString(R.string.error_wrong_data_message);
 
 				if (result.length() == 0) {
 					title.setText(R.string.enc_unknown_stanje_text);
-				} else if (result.equals(errorMessage)) {
+				} else if (result.equals(errorNoDataMessage) || result.equals(errorWrongDataMessage)) {
 					mListener.onAuthenticationException(result);
 				} else {
 					TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);

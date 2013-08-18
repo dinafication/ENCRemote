@@ -30,11 +30,13 @@
 			<version>${platform.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Ako se javi greška treba pokrenuti mvn clean -P install-missing-dependencies -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android-support</artifactId>
 			<version>v4</version>
 		</dependency>
+		<!-- Ako se javi greška treba pokrenuti mvn clean -P install-missing-dependencies -->
 		<dependency>
 			<groupId>com.google</groupId>
 			<artifactId>GoogleAdMobAdsSdk</artifactId>
@@ -55,7 +57,7 @@
 		</pluginManagement>
 		<plugins>
 
-			<!-- properties plugin se koristi da se učitaju local prpoertisi za projek. 
+			<!-- properties plugin se koristi da se učitaju local prpoertisi za projekt. 
 				Ti propertisi se koriste pri kompajliranju projekta -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -95,7 +97,6 @@
 						se pokrenuti naredba mvn clean Isto se može postići s naredbom: mvn install:install-file 
 						-DgroupId=com.google.android -DartifactId=android-support -Dversion=v4 -Dpackaging=jar 
 						-Dfile=lib/android-support-v4.jar -->
-					<!-- TODO: Premjestiti u poseban profil i dodati readme.md -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-install-plugin</artifactId>

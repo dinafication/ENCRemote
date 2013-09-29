@@ -15,7 +15,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<platform.version>4.1.1.4</platform.version>
-		<android.plugin.version>3.6.0</android.plugin.version>
+		<android.plugin.version>3.6.1</android.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -30,19 +30,19 @@
 			<version>${platform.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Ako se javi greška treba pokrenuti mvn clean -P install-missing-dependencies 
+			na projektu encchecker-app -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android-support</artifactId>
 			<version>v4</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/android-support-v4.jar</systemPath>
 		</dependency>
+		<!-- Ako se javi greška treba pokrenuti mvn clean -P install-missing-dependencies 
+			na projektu encchecker-app -->
 		<dependency>
 			<groupId>com.google</groupId>
 			<artifactId>GoogleAdMobAdsSdk</artifactId>
 			<version>6.4.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/GoogleAdMobAdsSdk-6.4.1.jar</systemPath>
 		</dependency>
 	</dependencies>
 	<build>
@@ -55,18 +55,46 @@
 					<version>${android.plugin.version}</version>
 					<extensions>true</extensions>
 				</plugin>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											properties-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.0-alpha-2,)
+										</versionRange>
+										<goals>
+											<goal>
+												read-project-properties
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
+
+			<!-- properties plugin se koristi da se učitaju local prpoertisi za projekt. 
+				Ti propertisi se koriste pri kompajliranju projekta -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>properties-maven-plugin</artifactId>
@@ -96,4 +124,52 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>install-missing-dependencies</id>
+			<build>
+				<plugins><!-- Install plugin se koristi da bi se u lokalni repozitorij 
+						instalirali dependencyi koji se ne mogu skinuti s maven repozitorija. Treba 
+						se pokrenuti naredba mvn clean Isto se može postići s naredbom: mvn install:install-file 
+						-DgroupId=com.google.android -DartifactId=android-support -Dversion=v4 -Dpackaging=jar 
+						-Dfile=lib/android-support-v4.jar -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-install-plugin</artifactId>
+						<version>2.3.1</version>
+						<executions>
+							<execution>
+								<id>install-android-support-lib</id>
+								<goals>
+									<goal>install-file</goal>
+								</goals>
+								<phase>clean</phase>
+								<configuration>
+									<file>lib/android-support-v4.jar</file>
+									<groupId>com.google.android</groupId>
+									<artifactId>android-support</artifactId>
+									<version>v4</version>
+									<packaging>jar</packaging>
+								</configuration>
+							</execution>
+							<execution>
+								<id>install-jar-lib</id>
+								<goals>
+									<goal>install-file</goal>
+								</goals>
+								<phase>clean</phase>
+								<configuration>
+									<file>lib/GoogleAdMobAdsSdk-6.4.1.jar</file>
+									<groupId>com.google</groupId>
+									<artifactId>GoogleAdMobAdsSdk</artifactId>
+									<version>6.4.1</version>
+									<packaging>jar</packaging>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

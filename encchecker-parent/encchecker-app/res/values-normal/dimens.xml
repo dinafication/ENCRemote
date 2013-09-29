@@ -1,5 +1,8 @@
+<!-- Dimens normal -->
 <resources>
 
-    <dimen name="ad_layout_height">100px</dimen>
+    <dimen name="ad_layout_height">50dp</dimen>
+    <dimen name="app_text_size">20dp</dimen>
+    <dimen name="button_margin_top">40dp</dimen>
 
 </resources>

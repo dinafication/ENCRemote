@@ -2,6 +2,4 @@
 <resources>
 
     <string name="username_label">Korisničko ime: (XLarge)</string>
-    <string name="ad_size">IAB_LEADERBOARD</string>
-
-</resources>
+</resources>

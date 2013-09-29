@@ -5,13 +5,17 @@ import hr.hackweek.encchecker.fragments.PasswordFrag;
 import hr.hackweek.encchecker.fragments.StateFrag;
 import hr.hackweek.encchecker.fragments.StateFrag.OnAuthenticationExceptionListener;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TabHost.TabSpec;
 
 public class MainActivity extends FragmentActivity implements OnAuthenticationExceptionListener {
 
@@ -29,6 +33,10 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		mTabHost.addTab(mTabHost.newTabSpec("settings").setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5_light)), PasswordFrag.class, new Bundle());
 		mTabHost.addTab(mTabHost.newTabSpec("state").setIndicator("Stanje", getResources().getDrawable(R.drawable.money3_light)), StateFrag.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec("help").setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2_light)), HelpFrag.class, null);
+
+		
+		Drawable kaj = mTabHost.getTabWidget().getChildAt(0).getBackground();
+		Log.d("Nekaj", kaj.toString());
 	}
 	
 

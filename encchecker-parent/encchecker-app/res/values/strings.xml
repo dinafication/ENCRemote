@@ -18,7 +18,9 @@
     <string name="usernameHint">Korisničko ime</string>
     <string name="password_label">Lozinka:</string>
     <string name="passwordHint">Lozinka</string>
-    <string name="error_message">Korisničko ime ili lozinka nisu prepoznati u sustavu.</string>
+    <string name="error_wrong_data_message">Korisničko ime ili lozinka nisu prepoznati u sustavu.</string>
+    <string name="error_no_data_message">Niste unijeli podatke za pristup privatnom dijelu portala.</string>
+    <string name="ad_size">SMART_BANNER</string>
 
     <color name="custom_theme_background">#424242</color>
     <!-- <color name="custom_theme_txtview_background">#D8D8D8</color> -->

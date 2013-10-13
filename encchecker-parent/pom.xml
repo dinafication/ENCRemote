@@ -11,5 +11,6 @@
 	<modules>
 		<module>encchecker-lib</module>
 		<module>encchecker-app</module>
+		<module>encchecker-tst</module>
 	</modules>
 </project>

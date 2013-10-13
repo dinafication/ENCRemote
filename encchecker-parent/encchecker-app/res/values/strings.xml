@@ -25,5 +25,8 @@
     <color name="custom_theme_background">#424242</color>
     <!-- <color name="custom_theme_txtview_background">#D8D8D8</color> -->
     <color name="custom_theme_txtview_background">#333333</color>
+    
+    <integer name="selected_tab_color1">0xFF0AD7D7</integer>
+    <integer name="selected_tab_color2">0xFF0188CC</integer>
 
 </resources>

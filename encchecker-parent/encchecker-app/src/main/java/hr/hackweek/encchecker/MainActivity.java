@@ -46,13 +46,13 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		mTabHost.addTab(mTabHost.newTabSpec(tab2).setIndicator("Stanje", getResources().getDrawable(R.drawable.money3_light)), StateFrag.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec(tab3).setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2_light)), HelpFrag.class, null);
 
-		mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.tab_height);
-		mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.tab_height);
-		mTabHost.getTabWidget().getChildAt(2).getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.tab_height);
+		//mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.tab_height);
+		//mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.tab_height);
+		//mTabHost.getTabWidget().getChildAt(2).getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.tab_height);
 		
 		final GradientDrawable gd_selected = new GradientDrawable(
 	            GradientDrawable.Orientation.TOP_BOTTOM,
-	            new int[] {R.integer.selected_tab_color1,R.integer.selected_tab_color2});//0188CC	0B2DD6
+	            new int[] {getResources().getInteger(R.integer.selected_tab_color1),getResources().getInteger(R.integer.selected_tab_color2)});//0188CC	0B2DD6
 		gd_selected.setCornerRadius(0f);
 		
 		final Drawable gd_unselected = mTabHost.getTabWidget().getChildAt(1).getBackground();

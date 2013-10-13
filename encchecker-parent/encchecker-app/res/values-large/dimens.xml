@@ -4,5 +4,6 @@
     <dimen name="ad_layout_height">90dp</dimen>
     <dimen name="app_text_size">35dp</dimen>
     <dimen name="button_margin_top">60dp</dimen>
+    <dimen name="tab_height">70dp</dimen>
 
 </resources>

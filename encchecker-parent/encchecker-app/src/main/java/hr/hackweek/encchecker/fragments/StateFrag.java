@@ -65,25 +65,23 @@ public class StateFrag extends Fragment {
 			throw new ClassCastException(activity.toString() + " must implement onAuthenticationException");
 		}
 	}
-	
+
 	private Animation spinin;
-	
-	private void setAnimation(){
+
+	private void setAnimation() {
 		spinin = AnimationUtils.loadAnimation(getActivity(), R.anim.custom_anim);
-		LayoutAnimationController controller = new LayoutAnimationController(
-				spinin);
+		LayoutAnimationController controller = new LayoutAnimationController(spinin);
 		controller.setOrder(LayoutAnimationController.ORDER_RANDOM);
 		ImageButton refresher = (ImageButton) view.findViewById(R.id.refresher);
-		
+
 		refresher.setAnimation(spinin);
-		
-		}
-	
-	private void startAnimation(){
+
+	}
+
+	private void startAnimation() {
 		spinin.start();
 	}
 
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -92,24 +90,23 @@ public class StateFrag extends Fragment {
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
-		 
-		//setAnimation();
+
+		// setAnimation();
 		return view;
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		
-		((MainActivity)getActivity()).hideSoftKeyboard();
+
+		((MainActivity) getActivity()).hideSoftKeyboard();
 
 		loadPreferences();
 
 		fetchUrl();
 	}
-	
-	
-	public void fetchUrl(){
+
+	public void fetchUrl() {
 		DownloadEncStateTask dest = new DownloadEncStateTask();
 
 		StringBuilder url = new StringBuilder();
@@ -118,9 +115,7 @@ public class StateFrag extends Fragment {
 
 		dest.execute(new String[] { url.toString() });
 	}
-	
-	
-	
+
 	private void loadPreferences() {
 
 		if (appSettings.contains(ApplicationConstants.USERNAME_PREFERENCES)) {
@@ -139,12 +134,13 @@ public class StateFrag extends Fragment {
 		private boolean online;
 
 		ImageButton refresher;
+
 		@Override
 		protected void onPreExecute() {
-			//startAnimation();
+			// startAnimation();
 			refresher = (ImageButton) view.findViewById(R.id.refresher);
 			refresher.setVisibility(View.INVISIBLE);
-			
+
 			online = isOnline();
 			if (online) {
 				toggleOfflineMessage(false);
@@ -207,8 +203,8 @@ public class StateFrag extends Fragment {
 					saveEncState(result);
 				}
 			}
-			
-			//spinin.cancel();
+
+			// spinin.cancel();
 			refresher.setVisibility(View.VISIBLE);
 		}
 
@@ -246,7 +242,7 @@ public class StateFrag extends Fragment {
 			 * Vratiti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu
 			 */
-			return netInfo.isAvailable() && !netInfo.isRoaming();
+			return netInfo != null && netInfo.isAvailable() && !netInfo.isRoaming();
 		}
 
 		/**

@@ -10,6 +10,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpParams;
 
 import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.MainActivity;
@@ -157,6 +158,10 @@ public class StateFrag extends Fragment {
 		@Override
 		protected String doInBackground(String... params) {
 			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+
+			HttpParams httpParams = httpclient.getParams();
+			httpParams.setParameter("User-Agent", "EncChecker Android application. email: enc.checker@gmail.com");
+
 			String response;
 
 			if (online) {

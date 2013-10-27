@@ -6,6 +6,4 @@
     <dimen name="app_header_size">52dp</dimen>
     <dimen name="app_state_size">70dp</dimen>
     <dimen name="button_margin_top">60dp</dimen>
-    <dimen name="tab_height">64px</dimen>
-
-</resources>
+</resources>

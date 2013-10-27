@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -51,16 +52,15 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 	            new int[] {getResources().getInteger(R.integer.selected_tab_color1),getResources().getInteger(R.integer.selected_tab_color2)});//0188CC	0B2DD6
 		gd_selected.setCornerRadius(0f);
 		
-		
+		 final Drawable gd = mTabHost.getTabWidget().getChildAt(1).getBackground();
+		 final Drawable gd_unselected = ((DrawableContainer)gd).getCurrent();
+		 //final Drawable gd_unselected = gd_unselected2.mutate();
 		 
-		final Drawable gd_unselected = (Drawable)  mTabHost.getTabWidget().getChildAt(1).getBackground();
-//		 
 //		 final GradientDrawable gd_unselected = new GradientDrawable(
 //		            GradientDrawable.Orientation.TOP_BOTTOM,
-//		            new int[] {0xFF808080,0xFF808080});//0188CC	0B2DD6
+//		            new int[] {0xFF2E2E2E,0xFF1C1C1C});//0188CC	0B2DD6
 //		 gd_unselected.setCornerRadius(0f);
-//		
-		 
+
 		//init
 		addDrawableToLay(mTabHost.getTabWidget().getChildAt(0), gd_selected);
 	    

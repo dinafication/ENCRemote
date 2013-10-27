@@ -10,7 +10,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
-
 import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
@@ -29,15 +28,13 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class StateFrag extends Fragment {
+public class StateFrag extends Fragment implements OnClickListener {
 
 	private final String TAG = "STATE_FRAG";
 	private View view;
@@ -46,6 +43,7 @@ public class StateFrag extends Fragment {
 	private TextView title;
 	private String username;
 	private String password;
+	private Button refresher;
 
 	private SharedPreferences appSettings;
 
@@ -65,21 +63,11 @@ public class StateFrag extends Fragment {
 			throw new ClassCastException(activity.toString() + " must implement onAuthenticationException");
 		}
 	}
+	
+	public void onClick(View v) {
+		loadPreferences();
 
-	private Animation spinin;
-
-	private void setAnimation() {
-		spinin = AnimationUtils.loadAnimation(getActivity(), R.anim.custom_anim);
-		LayoutAnimationController controller = new LayoutAnimationController(spinin);
-		controller.setOrder(LayoutAnimationController.ORDER_RANDOM);
-		ImageButton refresher = (ImageButton) view.findViewById(R.id.refresher);
-
-		refresher.setAnimation(spinin);
-
-	}
-
-	private void startAnimation() {
-		spinin.start();
+		fetchUrl();
 	}
 
 	@Override
@@ -90,6 +78,8 @@ public class StateFrag extends Fragment {
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
+		refresher = (Button) view.findViewById(R.id.refresher);
+		refresher.setOnClickListener(this);
 
 		// setAnimation();
 		return view;
@@ -133,12 +123,8 @@ public class StateFrag extends Fragment {
 		private AndroidHttpClient httpclient;
 		private boolean online;
 
-		ImageButton refresher;
-
 		@Override
 		protected void onPreExecute() {
-			// startAnimation();
-			refresher = (ImageButton) view.findViewById(R.id.refresher);
 			refresher.setVisibility(View.INVISIBLE);
 
 			online = isOnline();
@@ -157,6 +143,7 @@ public class StateFrag extends Fragment {
 		@Override
 		protected String doInBackground(String... params) {
 			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+
 			String response;
 
 			if (online) {
@@ -237,7 +224,8 @@ public class StateFrag extends Fragment {
 		private boolean isOnline() {
 			ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-			if(netInfo == null)netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+			if (netInfo == null)
+				netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 			/**
 			 * Vratiti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu
@@ -246,7 +234,7 @@ public class StateFrag extends Fragment {
 		}
 
 		/**
-		 * Šalje korisnikov username i password i dogvaća stranicu na kojoj je
+		 * Šalje korisnikov username i password i dohvaća stranicu na kojoj je
 		 * stanje
 		 * 
 		 * @param url
@@ -255,7 +243,7 @@ public class StateFrag extends Fragment {
 		public String postLoginData(String url) {
 			String ret = null;
 
-			HttpPost httppost = new HttpPost(url);
+			HttpPost httpPost = new HttpPost(url);
 
 			try {
 
@@ -265,10 +253,11 @@ public class StateFrag extends Fragment {
 				nameValuePairs.add(new BasicNameValuePair("password", password.trim()));
 				nameValuePairs.add(new BasicNameValuePair("login", "Prijava"));
 
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				httpPost.setHeader("User-Agent", "EncChecker Android application. email: enc.checker@gmail.com");
 
 				// Execute HTTP Post Request
-				HttpResponse response = httpclient.execute(httppost);
+				HttpResponse response = httpclient.execute(httpPost);
 
 				EncPageParser parser = new EncPageParser(response.getEntity().getContent());
 

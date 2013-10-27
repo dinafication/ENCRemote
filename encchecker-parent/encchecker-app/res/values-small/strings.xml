@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- TODO: Ukloniti -->
     <string name="username_label">Korisničko ime: (small)</string>
+    <string name="size"> - small</string>
 
 </resources>

@@ -249,8 +249,8 @@ public class StateFrag extends Fragment implements OnClickListener {
 
 				// Add your data
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-				nameValuePairs.add(new BasicNameValuePair("username", username));
-				nameValuePairs.add(new BasicNameValuePair("password", password));
+				nameValuePairs.add(new BasicNameValuePair("username", username.trim()));
+				nameValuePairs.add(new BasicNameValuePair("password", password.trim()));
 				nameValuePairs.add(new BasicNameValuePair("login", "Prijava"));
 
 				httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

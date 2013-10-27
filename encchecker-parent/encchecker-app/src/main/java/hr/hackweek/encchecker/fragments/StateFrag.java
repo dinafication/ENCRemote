@@ -16,6 +16,7 @@ import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
 import hr.hackweek.encchecker.lib.AuthenticationException;
 import hr.hackweek.encchecker.lib.EncPageParser;
+//import hr.hackweek.encchecker.lib.EncPageParser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -261,8 +262,8 @@ public class StateFrag extends Fragment {
 
 				// Add your data
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-				nameValuePairs.add(new BasicNameValuePair("username", username));
-				nameValuePairs.add(new BasicNameValuePair("password", password));
+				nameValuePairs.add(new BasicNameValuePair("username", username.trim()));
+				nameValuePairs.add(new BasicNameValuePair("password", password.trim()));
 				nameValuePairs.add(new BasicNameValuePair("login", "Prijava"));
 
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

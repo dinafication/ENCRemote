@@ -43,7 +43,7 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
 
 		mTabHost.addTab(mTabHost.newTabSpec(tab1).setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5_light)), PasswordFrag.class, new Bundle());
-		mTabHost.addTab(mTabHost.newTabSpec(tab2).setIndicator("Stanje", getResources().getDrawable(R.drawable.money3_light)), StateFrag.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec(tab2).setIndicator("Stanje", getResources().getDrawable(R.drawable.ic_tab_example_selected)), StateFrag.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec(tab3).setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2_light)), HelpFrag.class, null);
 
 		//mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.tab_height);
@@ -57,13 +57,14 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		
 		
 		 
-		//final Drawable gd_unselected = mTabHost.getTabWidget().getChildAt(1).getBackground();
+		final Drawable gd_unselected = (Drawable)  mTabHost.getTabWidget().getChildAt(1).getBackground();
+//		 
+//		 final GradientDrawable gd_unselected = new GradientDrawable(
+//		            GradientDrawable.Orientation.TOP_BOTTOM,
+//		            new int[] {0xFF808080,0xFF808080});//0188CC	0B2DD6
+//		 gd_unselected.setCornerRadius(0f);
+//		
 		 
-		 final GradientDrawable gd_unselected = new GradientDrawable(
-		            GradientDrawable.Orientation.TOP_BOTTOM,
-		            new int[] {0xFF808080,0xFF808080});//0188CC	0B2DD6
-		 gd_unselected.setCornerRadius(0f);
-		
 		//init
 		addDrawableToLay(mTabHost.getTabWidget().getChildAt(0), gd_selected);
 	    

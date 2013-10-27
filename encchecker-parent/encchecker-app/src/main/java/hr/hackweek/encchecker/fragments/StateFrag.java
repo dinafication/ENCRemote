@@ -16,7 +16,6 @@ import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
 import hr.hackweek.encchecker.lib.AuthenticationException;
 import hr.hackweek.encchecker.lib.EncPageParser;
-//import hr.hackweek.encchecker.lib.EncPageParser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;

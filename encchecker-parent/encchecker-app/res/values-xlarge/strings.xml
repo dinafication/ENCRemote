@@ -3,5 +3,5 @@
 
     <!-- TODO: Ukloniti -->
     <string name="username_label">Korisničko ime: (XLarge)</string>
-    <string name="enc_online_stanje_text">Trenutno stanje ENC-a: (XLarge)</string>
+    <string name="size"> - XLarge</string>
 </resources>

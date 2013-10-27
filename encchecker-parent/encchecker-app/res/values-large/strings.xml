@@ -3,6 +3,6 @@
 
     <!-- TODO: Ukloniti -->
     <string name="username_label">Korisničko ime: (Large)</string>    
-    <string name="enc_online_stanje_text">Trenutno stanje ENC-a: (Large)</string>
+    <string name="size"> - Large</string>
 
 </resources>

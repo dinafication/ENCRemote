@@ -11,14 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp" />
+        android:layout_marginBottom="30dp" />
 
     <Button
         android:id="@+id/refresher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/progress_bar"
-        android:layout_alignRight="@+id/progress_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/button_margin_top"
         android:background="@drawable/roundedbutton"
@@ -33,16 +32,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="4dp"
         android:text="@string/enc_online_stanje_text"
         android:textSize="@dimen/app_header_size" />
 
+    <!-- TODO: Makonuti string za određivanje densitija -->
     <TextView
         android:id="@+id/enc_stanje_densitie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:text="@string/densitie"
+        android:textSize="@dimen/app_text_size" />
+
+    <TextView
+        android:id="@+id/enc_stanje_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@id/enc_stanje_densitie"
+        android:text="@string/size"
         android:textSize="@dimen/app_text_size" />
 
     <!-- TODO: Maknuti harkodirani iznos -->

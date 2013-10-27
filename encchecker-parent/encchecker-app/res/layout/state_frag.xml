@@ -25,14 +25,32 @@
         android:padding="10dp"
         android:text="@string/refresh"
         android:textSize="@dimen/app_text_size" />
+    
+       <LinearLayout
+            android:id="@+id/errorLayoutPom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_padding_vertical"
+            android:textSize="@dimen/app_text_size" >
+
+            <TextView
+                android:id="@+id/errorTextViewPom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=" "
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="@dimen/app_text_size"
+                android:visibility="visible" />
+        </LinearLayout>
 
     <TextView
         android:id="@+id/enc_stanje_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/errorLayoutPom"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/layout_padding_vertical"
         android:layout_marginLeft="4dp"
         android:text="@string/enc_online_stanje_text"
         android:textSize="@dimen/app_header_size" />

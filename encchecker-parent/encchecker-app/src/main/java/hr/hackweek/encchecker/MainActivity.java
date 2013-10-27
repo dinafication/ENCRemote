@@ -6,7 +6,6 @@ import hr.hackweek.encchecker.fragments.StateFrag;
 import hr.hackweek.encchecker.fragments.StateFrag.OnAuthenticationExceptionListener;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.DrawableContainer;
@@ -15,14 +14,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-import android.text.Layout;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TabHost.TabSpec;
 
 public class MainActivity extends FragmentActivity implements OnAuthenticationExceptionListener {
 

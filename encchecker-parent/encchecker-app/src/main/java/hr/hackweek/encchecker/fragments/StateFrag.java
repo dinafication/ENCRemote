@@ -159,9 +159,6 @@ public class StateFrag extends Fragment {
 		protected String doInBackground(String... params) {
 			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
 
-			HttpParams httpParams = httpclient.getParams();
-			httpParams.setParameter("User-Agent", "EncChecker Android application. email: enc.checker@gmail.com");
-
 			String response;
 
 			if (online) {
@@ -242,7 +239,8 @@ public class StateFrag extends Fragment {
 		private boolean isOnline() {
 			ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-			if(netInfo == null)netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+			if (netInfo == null)
+				netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 			/**
 			 * Vratiti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu
@@ -260,7 +258,7 @@ public class StateFrag extends Fragment {
 		public String postLoginData(String url) {
 			String ret = null;
 
-			HttpPost httppost = new HttpPost(url);
+			HttpPost httpPost = new HttpPost(url);
 
 			try {
 
@@ -270,10 +268,11 @@ public class StateFrag extends Fragment {
 				nameValuePairs.add(new BasicNameValuePair("password", password));
 				nameValuePairs.add(new BasicNameValuePair("login", "Prijava"));
 
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				httpPost.setHeader("User-Agent", "EncChecker Android application. email: enc.checker@gmail.com");
 
 				// Execute HTTP Post Request
-				HttpResponse response = httpclient.execute(httppost);
+				HttpResponse response = httpclient.execute(httpPost);
 
 				EncPageParser parser = new EncPageParser(response.getEntity().getContent());
 

@@ -33,8 +33,7 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 	public static final String tab3 = "help";
 	
 	public final static int sdk = android.os.Build.VERSION.SDK_INT;
-	
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 

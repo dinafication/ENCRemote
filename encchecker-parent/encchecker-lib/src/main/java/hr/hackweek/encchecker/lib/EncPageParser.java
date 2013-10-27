@@ -34,7 +34,7 @@ public class EncPageParser {
 
 			TagNode[] rows = table.getElementsByName("tr", isRecursive);
 
-			// Podatak os tanju se nalazi na drugom retku
+			// Podatak o stanju se nalazi na drugom retku
 			TagNode dataRow = rows[1];
 
 			TagNode[] td = dataRow.getElementsByName("td", isRecursive);

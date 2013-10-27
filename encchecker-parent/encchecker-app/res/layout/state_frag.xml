@@ -13,16 +13,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="38dp" />
 
-    <ImageButton
+    <Button
         android:id="@+id/refresher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/progress_bar"
         android:layout_alignRight="@+id/progress_bar"
-        android:background="@android:color/transparent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/button_margin_top"
+        android:background="@drawable/roundedbutton"
         android:contentDescription="@string/refresh_button_description"
-        android:onClick="refresherClck"
-        android:src="@drawable/bluerefresh1" />
+        android:padding="10dp"
+        android:text="@string/refresh"
+        android:textSize="@dimen/app_text_size" />
 
     <TextView
         android:id="@+id/enc_stanje_text"
@@ -33,11 +36,11 @@
         android:layout_marginTop="41dp"
         android:text="@string/enc_online_stanje_text"
         android:textSize="@dimen/app_header_size" />
-    
-     <TextView
+
+    <TextView
         android:id="@+id/enc_stanje_densitie"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/densitie"
         android:textSize="@dimen/app_text_size" />

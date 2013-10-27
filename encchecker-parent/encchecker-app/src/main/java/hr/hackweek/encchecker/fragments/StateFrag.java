@@ -249,7 +249,7 @@ public class StateFrag extends Fragment {
 		}
 
 		/**
-		 * Šalje korisnikov username i password i dogvaća stranicu na kojoj je
+		 * Šalje korisnikov username i password i dohvaća stranicu na kojoj je
 		 * stanje
 		 * 
 		 * @param url

@@ -55,7 +55,14 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 	            new int[] {getResources().getInteger(R.integer.selected_tab_color1),getResources().getInteger(R.integer.selected_tab_color2)});//0188CC	0B2DD6
 		gd_selected.setCornerRadius(0f);
 		
-		final Drawable gd_unselected = mTabHost.getTabWidget().getChildAt(1).getBackground();
+		
+		 
+		//final Drawable gd_unselected = mTabHost.getTabWidget().getChildAt(1).getBackground();
+		 
+		 final GradientDrawable gd_unselected = new GradientDrawable(
+		            GradientDrawable.Orientation.TOP_BOTTOM,
+		            new int[] {0xFF808080,0xFF808080});//0188CC	0B2DD6
+		 gd_unselected.setCornerRadius(0f);
 		
 		//init
 		addDrawableToLay(mTabHost.getTabWidget().getChildAt(0), gd_selected);

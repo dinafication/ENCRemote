@@ -237,7 +237,7 @@ public class StateFrag extends Fragment {
 		private boolean isOnline() {
 			ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
+			if(netInfo == null)netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 			/**
 			 * Vratiti true samo ako je moguće uspostaviti vezu i ako uređaj
 			 * nije u roamingu

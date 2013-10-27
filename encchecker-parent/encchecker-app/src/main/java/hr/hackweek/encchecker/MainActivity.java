@@ -6,7 +6,6 @@ import hr.hackweek.encchecker.fragments.StateFrag;
 import hr.hackweek.encchecker.fragments.StateFrag.OnAuthenticationExceptionListener;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -14,14 +13,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-import android.text.Layout;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TabHost.TabSpec;
 
 public class MainActivity extends FragmentActivity implements OnAuthenticationExceptionListener {
 
@@ -43,7 +39,7 @@ public class MainActivity extends FragmentActivity implements OnAuthenticationEx
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
 
 		mTabHost.addTab(mTabHost.newTabSpec(tab1).setIndicator("Postavke", getResources().getDrawable(R.drawable.user_5_light)), PasswordFrag.class, new Bundle());
-		mTabHost.addTab(mTabHost.newTabSpec(tab2).setIndicator("Stanje", getResources().getDrawable(R.drawable.ic_tab_example_selected)), StateFrag.class, null);
+		mTabHost.addTab(mTabHost.newTabSpec(tab2).setIndicator("Stanje", getResources().getDrawable(R.drawable.money3_light)), StateFrag.class, null);
 		mTabHost.addTab(mTabHost.newTabSpec(tab3).setIndicator("Help", getResources().getDrawable(R.drawable.help_putokaz_2_light)), HelpFrag.class, null);
 
 		//mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.tab_height);

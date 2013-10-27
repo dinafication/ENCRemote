@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- TODO: Ukloniti -->
     <string name="username_label">Korisničko ime: (XLarge)</string>
+    <string name="enc_online_stanje_text">Trenutno stanje ENC-a: (XLarge)</string>
 </resources>

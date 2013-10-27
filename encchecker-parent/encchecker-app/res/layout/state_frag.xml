@@ -3,42 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp" />
+
+    <ImageButton
+        android:id="@+id/refresher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/progress_bar"
+        android:layout_alignRight="@+id/progress_bar"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/refresh_button_description"
+        android:onClick="refresherClck"
+        android:src="@drawable/bluerefresh1" />
+
+    <TextView
+        android:id="@+id/enc_stanje_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:text="@string/enc_online_stanje_text"
+        android:textSize="@dimen/app_header_size" />
     
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="38dp" />
+     <TextView
+        android:id="@+id/enc_stanje_densitie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:layout_marginTop="20dp"
+        android:text="@string/densitie"
+        android:textSize="@dimen/app_text_size" />
 
-        <ImageButton
-            android:id="@+id/refresher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/progress_bar"
-            android:layout_alignRight="@+id/progress_bar"
-            android:background="@android:color/transparent"
-            android:contentDescription="Refresh"
-            android:onClick="refresherClck"
-            android:src="@drawable/bluerefresh1" />
+    <!-- TODO: Maknuti harkodirani iznos -->
 
-        <TextView
-            android:id="@+id/enc_stanje_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="41dp"
-            android:text="@string/enc_online_stanje_text" />
-
-        <TextView
-            android:id="@+id/enc_stanje_iznos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
-        =
+    <TextView
+        android:id="@+id/enc_stanje_iznos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enc_stanje_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="217,68 HRK"
+        android:textSize="@dimen/app_state_size" />
 
 </RelativeLayout>

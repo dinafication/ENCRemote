@@ -10,8 +10,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpParams;
-
 import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
@@ -69,6 +67,7 @@ public class StateFrag extends Fragment {
 
 	private Animation spinin;
 
+	// TODO: Provjeriti je li potrebna ova metoda
 	private void setAnimation() {
 		spinin = AnimationUtils.loadAnimation(getActivity(), R.anim.custom_anim);
 		LayoutAnimationController controller = new LayoutAnimationController(spinin);
@@ -79,6 +78,7 @@ public class StateFrag extends Fragment {
 
 	}
 
+	// TODO: Provjeriti je li potrebna ova metoda
 	private void startAnimation() {
 		spinin.start();
 	}

@@ -33,19 +33,19 @@
 		</dependency>
 		<!-- Ako se javi greška treba pokrenuti mvn clean -P install-missing-dependencies 
 			na projektu encchecker-app -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.google.android</groupId> -->
-<!-- 			<artifactId>android-support</artifactId> -->
-<!-- 			<version>v4</version> -->
-<!-- 		</dependency> -->
-		
 		<dependency>
-			 <groupId>com.android.support</groupId>
-			 <artifactId>support-v4</artifactId>
-			 <version>18.0.0</version>
-			 <scope>compile</scope>
+			<groupId>com.google.android</groupId>
+			<artifactId>android-support</artifactId>
+			<version>v4</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android-support-v7-appcompat</artifactId>
+			<version>v7</version>
+			<scope>compile</scope>
+		</dependency>
+
 		<!-- Ako se javi greška treba pokrenuti mvn clean -P install-missing-dependencies 
 			na projektu encchecker-app -->
 		<dependency>
@@ -182,9 +182,9 @@
 								</goals>
 								<phase>clean</phase>
 								<configuration>
-									<file>lib/android-support-v7-appcompbat.jar</file>
+									<file>lib/android-support-v7-appcompat.jar</file>
 									<groupId>com.google.android</groupId>
-									<artifactId>android-support-v7-appcompbat</artifactId>
+									<artifactId>android-support-v7-appcompat</artifactId>
 									<version>v7</version>
 									<packaging>jar</packaging>
 								</configuration>

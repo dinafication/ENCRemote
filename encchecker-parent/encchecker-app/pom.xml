@@ -16,6 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<platform.version>4.1.1.4</platform.version>
 		<android.plugin.version>3.6.1</android.plugin.version>
+		<compatibility.version>18</compatibility.version>
 	</properties>
 
 	<dependencies>
@@ -32,11 +33,19 @@
 		</dependency>
 		<!-- Ako se javi greška treba pokrenuti mvn clean -P install-missing-dependencies 
 			na projektu encchecker-app -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.android</groupId> -->
+<!-- 			<artifactId>android-support</artifactId> -->
+<!-- 			<version>v4</version> -->
+<!-- 		</dependency> -->
+		
 		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android-support</artifactId>
-			<version>v4</version>
+			 <groupId>com.android.support</groupId>
+			 <artifactId>support-v4</artifactId>
+			 <version>18.0.0</version>
+			 <scope>compile</scope>
 		</dependency>
+		
 		<!-- Ako se javi greška treba pokrenuti mvn clean -P install-missing-dependencies 
 			na projektu encchecker-app -->
 		<dependency>
@@ -163,6 +172,20 @@
 									<groupId>com.google</groupId>
 									<artifactId>GoogleAdMobAdsSdk</artifactId>
 									<version>6.4.1</version>
+									<packaging>jar</packaging>
+								</configuration>
+							</execution>
+							<execution>
+								<id>install-android-support-appcompat-lib</id>
+								<goals>
+									<goal>install-file</goal>
+								</goals>
+								<phase>clean</phase>
+								<configuration>
+									<file>lib/android-support-v7-appcompbat.jar</file>
+									<groupId>com.google.android</groupId>
+									<artifactId>android-support-v7-appcompbat</artifactId>
+									<version>v7</version>
 									<packaging>jar</packaging>
 								</configuration>
 							</execution>

@@ -34,7 +34,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class StateFrag extends Fragment implements OnClickListener {
+public class StateFrag extends OneActivityFragment implements OnClickListener {
 
 	private final String TAG = "STATE_FRAG";
 	private View view;
@@ -44,6 +44,7 @@ public class StateFrag extends Fragment implements OnClickListener {
 	private String username;
 	private String password;
 	private Button refresher;
+	private TextView encState;
 
 	private SharedPreferences appSettings;
 
@@ -80,6 +81,8 @@ public class StateFrag extends Fragment implements OnClickListener {
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
 		refresher = (Button) view.findViewById(R.id.refresher);
 		refresher.setOnClickListener(this);
+		encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
+		encState.setText(fetchStoredState());
 
 		// setAnimation();
 		return view;
@@ -89,11 +92,12 @@ public class StateFrag extends Fragment implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 
-		((MainActivity) getActivity()).hideSoftKeyboard();
-
 		loadPreferences();
 
 		fetchUrl();
+		
+		hideSoftKeyboard(); 
+		setDebug();
 	}
 
 	public void fetchUrl() {
@@ -142,17 +146,25 @@ public class StateFrag extends Fragment implements OnClickListener {
 
 		@Override
 		protected String doInBackground(String... params) {
-			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
-
+			
 			String response;
-
-			if (online) {
-				response = postLoginData(params[0]);
-			} else {
-				response = fetchStoredState();
+			
+			if(username==null || password==null){
+				response = getResources().getString(R.string.error_wrong_data_message);
 			}
+			else{
+				httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+				
+				if (online) {
+					response = postLoginData(params[0]);
+				} else {
+					response = fetchStoredState();
+				}
 
-			httpclient.close();
+				httpclient.close();
+				
+			}
+			
 			return response;
 		}
 
@@ -184,16 +196,15 @@ public class StateFrag extends Fragment implements OnClickListener {
 				} else if (result.equals(errorNoDataMessage) || result.equals(errorWrongDataMessage)) {
 					mListener.onAuthenticationException(result);
 				} else {
-					TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 					encState.setText(result);
-
 					saveEncState(result);
 				}
 			}
 
-			// spinin.cancel();
 			refresher.setVisibility(View.VISIBLE);
 		}
+
+
 
 		private void saveEncState(String result) {
 			Editor editor = appSettings.edit();
@@ -202,20 +213,7 @@ public class StateFrag extends Fragment implements OnClickListener {
 			editor.commit();
 		}
 
-		/**
-		 * Vraća lokalno storani podatak
-		 * 
-		 * @return
-		 */
-		private String fetchStoredState() {
-			String ret = null;
-			if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
-				ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
-			}
-
-			return ret;
-		}
-
+		
 		/**
 		 * Provjerava da li je moguće uspostaviti HTTPS vezu
 		 * 
@@ -277,4 +275,22 @@ public class StateFrag extends Fragment implements OnClickListener {
 			return ret;
 		}
 	}
+	
+	
+	
+	/**
+	 * Vraća lokalno storani podatak
+	 * 
+	 * @return
+	 */
+	private String fetchStoredState() {
+		String ret = null;
+		if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
+			ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
+		}
+
+		return ret;
+	}
+	
+
 }

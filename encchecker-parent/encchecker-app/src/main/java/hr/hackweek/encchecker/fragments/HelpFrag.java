@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class HelpFrag extends Fragment {
+public class HelpFrag extends OneActivityFragment {
 
 	private final String TAG = "HELP_FRAG";
 	private View view;
@@ -40,7 +40,8 @@ public class HelpFrag extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		((MainActivity) getActivity()).hideSoftKeyboard();
+		hideSoftKeyboard();
+		setDebug();
 	}
 
 	/**

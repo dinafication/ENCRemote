@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -83,5 +84,21 @@
         android:layout_marginTop="40dp"
         android:text=""
         android:textSize="@dimen/app_state_size" />
+    
+    <FrameLayout
+        android:id="@+id/state_oglasi"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ad_layout_height" 
+        android:layout_alignParentBottom="true">
+
+        <com.google.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            ads:adSize="@string/ad_size"
+            ads:adUnitId="a1520ba473ee8eb"
+            ads:loadAdOnCreate="true" />
+    </FrameLayout>
 
 </RelativeLayout>

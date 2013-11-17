@@ -34,7 +34,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class StateFrag extends Fragment implements OnClickListener {
+public class StateFrag extends OneActivityFragment implements OnClickListener {
 
 	private final String TAG = "STATE_FRAG";
 	private View view;
@@ -94,6 +94,8 @@ public class StateFrag extends Fragment implements OnClickListener {
 		loadPreferences();
 
 		fetchUrl();
+		
+		hideSoftKeyboard(); 
 	}
 
 	public void fetchUrl() {

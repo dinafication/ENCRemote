@@ -12,7 +12,6 @@ import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MotionEvent;
@@ -37,7 +36,13 @@ public class MainActivity extends ActionBarActivity implements
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
+		createTabs();	
+	}
+	
+	
+	private void createTabs(){
+		
 		mTabHost = (FragmentTabHost) findViewById(R.id.fragmentViewGroup);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
 
@@ -68,14 +73,7 @@ public class MainActivity extends ActionBarActivity implements
 		final Drawable gd = mTabHost.getTabWidget().getChildAt(1)
 				.getBackground();
 		final Drawable gd_unselected = ((DrawableContainer) gd).getCurrent();
-		// final Drawable gd_unselected = gd_unselected2.mutate();
-
-		// final GradientDrawable gd_unselected = new GradientDrawable(
-		// GradientDrawable.Orientation.TOP_BOTTOM,
-		// new int[] {0xFF2E2E2E,0xFF1C1C1C});//0188CC 0B2DD6
-		// gd_unselected.setCornerRadius(0f);
-
-		// init
+		
 		addDrawableToLay(mTabHost.getTabWidget().getChildAt(0), gd_selected);
 
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
@@ -118,7 +116,6 @@ public class MainActivity extends ActionBarActivity implements
 	public boolean onTouchEvent(MotionEvent event) {
 
 		hideSoftKeyboard();
-
 		return false;
 	}
 
@@ -128,7 +125,6 @@ public class MainActivity extends ActionBarActivity implements
 				&& getCurrentFocus().getWindowToken() != null) {
 
 			InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-
 			inputMethodManager.hideSoftInputFromWindow(getCurrentFocus()
 					.getWindowToken(), 0);
 
@@ -147,5 +143,7 @@ public class MainActivity extends ActionBarActivity implements
 	public void setStateFrag() {
 		mTabHost.setCurrentTabByTag(tab2);
 	}
+	
+	
 
 }

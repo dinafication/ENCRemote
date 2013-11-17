@@ -2,11 +2,26 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    
+     <android.support.v4.app.FragmentTabHost
+        android:id="@+id/fragmentViewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        
+         >
+
+        <FrameLayout
+            android:id="@+id/tabFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </android.support.v4.app.FragmentTabHost>
 
     <FrameLayout
         android:id="@+id/state_oglasi"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ad_layout_height" >
+        android:layout_height="@dimen/ad_layout_height" 
+        android:layout_alignParentBottom="true">
 
         <com.google.ads.AdView
             android:id="@+id/adView"
@@ -18,18 +33,6 @@
             ads:loadAdOnCreate="true" />
     </FrameLayout>
 
-    <android.support.v4.app.FragmentTabHost
-        android:id="@+id/fragmentViewGroup"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        
-        android:layout_below="@id/state_oglasi" >
-
-        <FrameLayout
-            android:id="@+id/tabFrameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-    </android.support.v4.app.FragmentTabHost>
+   
 
 </RelativeLayout>

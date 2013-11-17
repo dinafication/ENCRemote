@@ -44,6 +44,7 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 	private String username;
 	private String password;
 	private Button refresher;
+	private TextView encState;
 
 	private SharedPreferences appSettings;
 
@@ -80,6 +81,8 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
 		refresher = (Button) view.findViewById(R.id.refresher);
 		refresher.setOnClickListener(this);
+		encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
+		encState.setText(fetchStoredState());
 
 		// setAnimation();
 		return view;
@@ -186,7 +189,7 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 				} else if (result.equals(errorNoDataMessage) || result.equals(errorWrongDataMessage)) {
 					mListener.onAuthenticationException(result);
 				} else {
-					TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
+					//TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 					encState.setText(result);
 
 					saveEncState(result);
@@ -204,20 +207,7 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 			editor.commit();
 		}
 
-		/**
-		 * Vraća lokalno storani podatak
-		 * 
-		 * @return
-		 */
-		private String fetchStoredState() {
-			String ret = null;
-			if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
-				ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
-			}
-
-			return ret;
-		}
-
+		
 		/**
 		 * Provjerava da li je moguće uspostaviti HTTPS vezu
 		 * 
@@ -279,4 +269,19 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 			return ret;
 		}
 	}
+	
+	/**
+	 * Vraća lokalno storani podatak
+	 * 
+	 * @return
+	 */
+	private String fetchStoredState() {
+		String ret = null;
+		if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
+			ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
+		}
+
+		return ret;
+	}
+
 }

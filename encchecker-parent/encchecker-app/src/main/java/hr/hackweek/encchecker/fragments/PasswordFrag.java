@@ -53,6 +53,8 @@ public class PasswordFrag extends OneActivityFragment implements OnClickListener
 		initPassword();
 		
 		setKeyboardListeners();
+		
+		setDebug();
 	}
 
 	private void checkErrorMessage() {

@@ -41,6 +41,7 @@ public class HelpFrag extends OneActivityFragment {
 	public void onStart() {
 		super.onStart();
 		hideSoftKeyboard();
+		setDebug();
 	}
 
 	/**

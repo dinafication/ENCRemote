@@ -32,12 +32,13 @@
 
         <com.google.ads.AdView
             android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             ads:adSize="@string/ad_size"
             ads:adUnitId="a1520ba473ee8eb"
-            ads:loadAdOnCreate="true" />
+            ads:loadAdOnCreate="true"
+            ads:testDevices="TEST_EMULATOR, BF4DAC3E5979DCD3F8AB61D55AC33C8F"/>
     </FrameLayout>
     
 

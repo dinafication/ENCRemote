@@ -1,5 +1,8 @@
 package hr.hackweek.encchecker;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import hr.hackweek.encchecker.fragments.HelpFrag;
 import hr.hackweek.encchecker.fragments.PasswordFrag;
 import hr.hackweek.encchecker.fragments.StateFrag;
@@ -41,6 +44,8 @@ public class MainActivity extends ActionBarActivity implements
 	}
 	
 	
+	
+
 	private void createTabs(){
 		
 		mTabHost = (FragmentTabHost) findViewById(R.id.fragmentViewGroup);

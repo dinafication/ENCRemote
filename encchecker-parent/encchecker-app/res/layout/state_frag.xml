@@ -99,6 +99,7 @@
             ads:adSize="@string/ad_size"
             ads:adUnitId="a1520ba473ee8eb"
             ads:loadAdOnCreate="true" />
+        
     </FrameLayout>
 
 </RelativeLayout>

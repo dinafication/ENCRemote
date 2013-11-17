@@ -92,13 +92,12 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 
-		((MainActivity) getActivity()).hideSoftKeyboard();
-
 		loadPreferences();
 
 		fetchUrl();
 		
 		hideSoftKeyboard(); 
+		setDebug();
 	}
 
 	public void fetchUrl() {
@@ -147,17 +146,25 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 
 		@Override
 		protected String doInBackground(String... params) {
-			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
-
+			
 			String response;
-
-			if (online) {
-				response = postLoginData(params[0]);
-			} else {
-				response = fetchStoredState();
+			
+			if(username==null || password==null){
+				response = getResources().getString(R.string.error_wrong_data_message);
 			}
+			else{
+				httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+				
+				if (online) {
+					response = postLoginData(params[0]);
+				} else {
+					response = fetchStoredState();
+				}
 
-			httpclient.close();
+				httpclient.close();
+				
+			}
+			
 			return response;
 		}
 
@@ -189,16 +196,15 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 				} else if (result.equals(errorNoDataMessage) || result.equals(errorWrongDataMessage)) {
 					mListener.onAuthenticationException(result);
 				} else {
-					//TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 					encState.setText(result);
-
 					saveEncState(result);
 				}
 			}
 
-			// spinin.cancel();
 			refresher.setVisibility(View.VISIBLE);
 		}
+
+
 
 		private void saveEncState(String result) {
 			Editor editor = appSettings.edit();
@@ -270,6 +276,8 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 		}
 	}
 	
+	
+	
 	/**
 	 * Vraća lokalno storani podatak
 	 * 
@@ -283,5 +291,6 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 
 		return ret;
 	}
+	
 
 }

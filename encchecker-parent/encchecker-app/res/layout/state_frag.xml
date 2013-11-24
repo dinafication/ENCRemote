@@ -20,29 +20,27 @@
         android:layout_alignBottom="@+id/progress_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/button_margin_top"
-        android:background="@drawable/roundedbutton"
+        android:background="@null"
         android:contentDescription="@string/refresh_button_description"
         android:padding="10dp"
-        android:src="@drawable/button_blue_repeat" 
-        />
-    
-       <LinearLayout
-            android:id="@+id/errorLayoutPom"
+        android:src="@drawable/button_blue_repeat" />
+
+    <LinearLayout
+        android:id="@+id/errorLayoutPom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_padding_vertical"
+        android:textSize="@dimen/app_text_size" >
+
+        <TextView
+            android:id="@+id/errorTextViewPom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_padding_vertical"
-            android:textSize="@dimen/app_text_size" >
-
-            <TextView
-                android:id="@+id/errorTextViewPom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text=" "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="@dimen/app_text_size"
-                android:visibility="visible" />
-        </LinearLayout>
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/app_text_size"
+            android:visibility="visible" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/enc_stanje_text"
@@ -50,12 +48,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/errorLayoutPom"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/layout_padding_vertical"
         android:layout_marginLeft="4dp"
+        android:layout_marginTop="@dimen/layout_padding_vertical"
         android:text="@string/enc_online_stanje_text"
         android:textSize="@dimen/app_text_size" />
 
     <!-- TODO: Makonuti string za određivanje densitija -->
+
     <TextView
         android:id="@+id/enc_stanje_densitie"
         android:layout_width="wrap_content"
@@ -82,7 +81,7 @@
         android:layout_below="@+id/enc_stanje_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="217,68 HRK"
+        android:text=""
         android:textSize="@dimen/app_state_size" />
 
 </RelativeLayout>

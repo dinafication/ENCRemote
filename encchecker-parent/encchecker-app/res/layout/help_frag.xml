@@ -3,18 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/TextView_HelpText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/enc_stanje_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:lines="4"
-            android:text="TODO HELP......tralalalllllarewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:autoLink="all"
+        android:bufferType="spannable"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="@dimen/fading_edge_length"
+        android:isScrollContainer="true"
+        android:linksClickable="true"
+        android:padding="@dimen/help_text_padding"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        android:textColor="@color/title_color"
+        android:textColorLink="@color/logo_color"
+        android:textSize="@dimen/help_text_size"
+        android:textStyle="italic" >
+    </TextView>
 
 </RelativeLayout>

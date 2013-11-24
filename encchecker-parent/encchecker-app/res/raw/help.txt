@@ -7,4 +7,4 @@ U slučaju da program, iz bilo kojeg razloga, ne može pristupiti stranicama HAC
 Za sva pitanja i sugestije molimo vas da nam se obratite na email enc.checker@gmail.com
 
 COPYRIGHT ©2013, EncChecker Team
-All rights reserved.  
+All rights reserved. 

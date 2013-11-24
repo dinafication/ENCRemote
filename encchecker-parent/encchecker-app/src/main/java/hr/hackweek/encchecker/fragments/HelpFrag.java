@@ -22,15 +22,13 @@ public class HelpFrag extends Fragment {
 	private final String TAG = "HELP_FRAG";
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.help_frag, container, false);
 
 		// Read raw file into string and populate TextView
 		InputStream iFile = getResources().openRawResource(R.raw.help);
 		try {
-			TextView helpText = (TextView) view
-					.findViewById(R.id.TextView_HelpText);
+			TextView helpText = (TextView) view.findViewById(R.id.TextView_HelpText);
 			String strFile = inputStreamToString(iFile);
 			helpText.setText(strFile);
 		} catch (Exception e) {

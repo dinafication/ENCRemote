@@ -64,7 +64,7 @@ public class StateFrag extends Fragment implements OnClickListener {
 			throw new ClassCastException(activity.toString() + " must implement onAuthenticationException");
 		}
 	}
-	
+
 	public void onClick(View v) {
 		loadPreferences();
 
@@ -92,11 +92,10 @@ public class StateFrag extends Fragment implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 
-
 		loadPreferences();
 
 		fetchUrl();
-		
+
 		((MainActivity) getActivity()).hideSoftKeyboard();
 	}
 
@@ -146,15 +145,14 @@ public class StateFrag extends Fragment implements OnClickListener {
 
 		@Override
 		protected String doInBackground(String... params) {
-			
+
 			String response;
-			
-			if(username==null || password==null){
+
+			if (username == null || password == null) {
 				response = getResources().getString(R.string.error_wrong_data_message);
-			}
-			else{
+			} else {
 				httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
-				
+
 				if (online) {
 					response = postLoginData(params[0]);
 				} else {
@@ -162,9 +160,9 @@ public class StateFrag extends Fragment implements OnClickListener {
 				}
 
 				httpclient.close();
-				
+
 			}
-			
+
 			return response;
 		}
 
@@ -289,7 +287,6 @@ public class StateFrag extends Fragment implements OnClickListener {
 			return ret;
 		}
 	}
-	
 
 	/**
 	 * Vraća lokalno storani podatak

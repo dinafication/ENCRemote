@@ -15,33 +15,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class HelpFrag extends OneActivityFragment {
+public class HelpFrag extends Fragment {
 
-	private final String TAG = "HELP_FRAG";
 	private View view;
 
+	private final String TAG = "HELP_FRAG";
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.help_frag, container, false);
 
 		// Read raw file into string and populate TextView
 		InputStream iFile = getResources().openRawResource(R.raw.help);
 		try {
-			TextView helpText = (TextView) view.findViewById(R.id.TextView_HelpText);
+			TextView helpText = (TextView) view
+					.findViewById(R.id.TextView_HelpText);
 			String strFile = inputStreamToString(iFile);
 			helpText.setText(strFile);
 		} catch (Exception e) {
 			Log.e(TAG, "InputStreamToString failure", e);
 		}
-
 		return view;
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		hideSoftKeyboard();
-		setDebug();
 	}
 
 	/**
@@ -66,4 +61,11 @@ public class HelpFrag extends OneActivityFragment {
 		is.close();
 		return sBuffer.toString();
 	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		((MainActivity) getActivity()).hideSoftKeyboard();
+	}
+
 }

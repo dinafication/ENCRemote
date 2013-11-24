@@ -4,9 +4,8 @@
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="layout_padding_vertical">20dp</dimen>
-    <dimen name="help_text_size">8pt</dimen>
+	<dimen name="help_text_size">8pt</dimen>
     <dimen name="help_text_padding">20dp</dimen>
     <dimen name="fading_edge_length">25dp</dimen>
     <dimen name="drawable_padding">5dp</dimen>
-
 </resources>

@@ -34,17 +34,17 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class StateFrag extends OneActivityFragment implements OnClickListener {
+public class StateFrag extends Fragment implements OnClickListener {
 
 	private final String TAG = "STATE_FRAG";
 	private View view;
 	private ProgressBar pb;
+	private TextView encState;
 
 	private TextView title;
 	private String username;
 	private String password;
 	private Button refresher;
-	private TextView encState;
 
 	private SharedPreferences appSettings;
 
@@ -81,9 +81,9 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
 		refresher = (Button) view.findViewById(R.id.refresher);
 		refresher.setOnClickListener(this);
+
 		encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 		encState.setText(fetchStoredState());
-
 		// setAnimation();
 		return view;
 	}
@@ -92,12 +92,12 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 
+
 		loadPreferences();
 
 		fetchUrl();
 		
-		hideSoftKeyboard(); 
-		setDebug();
+		((MainActivity) getActivity()).hideSoftKeyboard();
 	}
 
 	public void fetchUrl() {
@@ -196,15 +196,16 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 				} else if (result.equals(errorNoDataMessage) || result.equals(errorWrongDataMessage)) {
 					mListener.onAuthenticationException(result);
 				} else {
+					TextView encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
 					encState.setText(result);
+
 					saveEncState(result);
 				}
 			}
 
+			// spinin.cancel();
 			refresher.setVisibility(View.VISIBLE);
 		}
-
-
 
 		private void saveEncState(String result) {
 			Editor editor = appSettings.edit();
@@ -213,7 +214,20 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 			editor.commit();
 		}
 
-		
+		/**
+		 * Vraća lokalno storani podatak
+		 * 
+		 * @return
+		 */
+		private String fetchStoredState() {
+			String ret = null;
+			if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
+				ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
+			}
+
+			return ret;
+		}
+
 		/**
 		 * Provjerava da li je moguće uspostaviti HTTPS vezu
 		 * 
@@ -276,8 +290,7 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 		}
 	}
 	
-	
-	
+
 	/**
 	 * Vraća lokalno storani podatak
 	 * 
@@ -291,6 +304,4 @@ public class StateFrag extends OneActivityFragment implements OnClickListener {
 
 		return ret;
 	}
-	
-
 }

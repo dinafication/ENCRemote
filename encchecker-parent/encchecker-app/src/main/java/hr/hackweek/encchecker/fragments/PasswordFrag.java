@@ -16,6 +16,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class PasswordFrag extends Fragment implements OnClickListener {
@@ -23,7 +24,7 @@ public class PasswordFrag extends Fragment implements OnClickListener {
 	private View view;
 	private EditText username;
 	private EditText password;
-	private Button postavi;
+	private ImageButton postavi;
 	private String errorMessage;
 
 	private SharedPreferences appSettings;
@@ -40,7 +41,7 @@ public class PasswordFrag extends Fragment implements OnClickListener {
 
 		// addTouchLsn();
 
-		postavi = (Button) view.findViewById(R.id.button1);
+		postavi = (ImageButton) view.findViewById(R.id.button1);
 		postavi.setOnClickListener(this);
 
 		return view;

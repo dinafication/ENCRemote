@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/refresher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,8 +23,8 @@
         android:background="@drawable/roundedbutton"
         android:contentDescription="@string/refresh_button_description"
         android:padding="10dp"
-        android:text="@string/refresh"
-        android:textSize="@dimen/app_text_size" />
+        android:src="@drawable/button_blue_repeat" 
+        />
     
        <LinearLayout
             android:id="@+id/errorLayoutPom"

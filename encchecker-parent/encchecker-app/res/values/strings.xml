@@ -22,7 +22,6 @@
     <string name="error_no_data_message">Niste unijeli podatke za pristup privatnom dijelu portala.</string>
     <string name="ad_size">SMART_BANNER</string>
     <string name="refresh_button_description">Refresh</string>
-    <string name="refresh">Osvježi</string>
 
     <color name="custom_theme_background">#424242</color>
     <!-- <color name="custom_theme_txtview_background">#D8D8D8</color> -->

@@ -10,6 +10,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+
 import hr.hackweek.encchecker.ApplicationConstants;
 import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
@@ -31,6 +32,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -44,7 +46,7 @@ public class StateFrag extends Fragment implements OnClickListener {
 	private TextView title;
 	private String username;
 	private String password;
-	private Button refresher;
+	private ImageButton refresher;
 
 	private SharedPreferences appSettings;
 
@@ -79,7 +81,7 @@ public class StateFrag extends Fragment implements OnClickListener {
 
 		pb = (ProgressBar) view.findViewById(R.id.progress_bar);
 		title = (TextView) view.findViewById(R.id.enc_stanje_text);
-		refresher = (Button) view.findViewById(R.id.refresher);
+		refresher = (ImageButton) view.findViewById(R.id.refresher);
 		refresher.setOnClickListener(this);
 
 		encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);

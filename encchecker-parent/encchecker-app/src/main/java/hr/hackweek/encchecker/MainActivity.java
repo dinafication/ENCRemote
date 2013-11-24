@@ -1,8 +1,5 @@
 package hr.hackweek.encchecker;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-
 import hr.hackweek.encchecker.fragments.HelpFrag;
 import hr.hackweek.encchecker.fragments.PasswordFrag;
 import hr.hackweek.encchecker.fragments.StateFrag;
@@ -15,15 +12,15 @@ import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TabHost.OnTabChangeListener;
 
-public class MainActivity extends ActionBarActivity implements
+public class MainActivity extends FragmentActivity implements
 		OnAuthenticationExceptionListener {
 
 	private FragmentTabHost mTabHost;
@@ -39,15 +36,12 @@ public class MainActivity extends ActionBarActivity implements
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		createTabs();	
-	}
-	
-	
-	
 
-	private void createTabs(){
-		
+		createTabs();
+	}
+
+	private void createTabs() {
+
 		mTabHost = (FragmentTabHost) findViewById(R.id.fragmentViewGroup);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
 
@@ -78,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements
 		final Drawable gd = mTabHost.getTabWidget().getChildAt(1)
 				.getBackground();
 		final Drawable gd_unselected = ((DrawableContainer) gd).getCurrent();
-		
+
 		addDrawableToLay(mTabHost.getTabWidget().getChildAt(0), gd_selected);
 
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
@@ -121,6 +115,7 @@ public class MainActivity extends ActionBarActivity implements
 	public boolean onTouchEvent(MotionEvent event) {
 
 		hideSoftKeyboard();
+
 		return false;
 	}
 
@@ -130,6 +125,7 @@ public class MainActivity extends ActionBarActivity implements
 				&& getCurrentFocus().getWindowToken() != null) {
 
 			InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+
 			inputMethodManager.hideSoftInputFromWindow(getCurrentFocus()
 					.getWindowToken(), 0);
 
@@ -148,7 +144,5 @@ public class MainActivity extends ActionBarActivity implements
 	public void setStateFrag() {
 		mTabHost.setCurrentTabByTag(tab2);
 	}
-	
-	
 
 }

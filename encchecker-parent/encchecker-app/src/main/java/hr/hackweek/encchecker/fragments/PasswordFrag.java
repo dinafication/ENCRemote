@@ -1,11 +1,13 @@
 package hr.hackweek.encchecker.fragments;
 
 import hr.hackweek.encchecker.ApplicationConstants;
+import hr.hackweek.encchecker.MainActivity;
 import hr.hackweek.encchecker.R;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class PasswordFrag extends OneActivityFragment implements OnClickListener {
+public class PasswordFrag extends Fragment implements OnClickListener {
 
 	private View view;
 	private EditText username;
@@ -36,9 +38,11 @@ public class PasswordFrag extends OneActivityFragment implements OnClickListener
 		username = (EditText) view.findViewById(R.id.username);
 		password = (EditText) view.findViewById(R.id.password);
 
+		// addTouchLsn();
+
 		postavi = (Button) view.findViewById(R.id.button1);
 		postavi.setOnClickListener(this);
-		
+
 		return view;
 	}
 
@@ -53,8 +57,6 @@ public class PasswordFrag extends OneActivityFragment implements OnClickListener
 		initPassword();
 		
 		setKeyboardListeners();
-		
-		setDebug();
 	}
 
 	private void checkErrorMessage() {
@@ -85,8 +87,9 @@ public class PasswordFrag extends OneActivityFragment implements OnClickListener
 	public void onClick(View v) {
 		savePrefferences();
 	
-		getCustomActivity().setStateFrag();
+		((MainActivity) getActivity()).setStateFrag();
 	}
+
 	private void savePrefferences() {
 		Editor editor = appSettings.edit();
 
@@ -97,19 +100,18 @@ public class PasswordFrag extends OneActivityFragment implements OnClickListener
 		editor.putString(ApplicationConstants.PASSWORD_PREFERENCES, pass);
 
 		editor.commit();
+
 	}
 	
-	
-
-	public void setKeyboardListeners(){
+public void setKeyboardListeners(){
 		
 		// remove keyboard na view click
-		View mainView = getActivity().findViewById(R.id.scrollViewPass);
+		View mainView = getActivity().findViewById(R.id.scrollView);
 		
 		mainView.setOnTouchListener(new OnTouchListener() {
 
 			public boolean onTouch(View arg0, MotionEvent arg1) {
-				hideSoftKeyboard();
+				((MainActivity) getActivity()).hideSoftKeyboard();
 				return false;
 			}
 
@@ -121,7 +123,7 @@ public class PasswordFrag extends OneActivityFragment implements OnClickListener
 		usernameView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 	        public void onFocusChange(View v, boolean hasFocus) {
 	            if (!hasFocus) {
-	            	hideSoftKeyboard();
+	            	((MainActivity) getActivity()).hideSoftKeyboard();
 	            }
 	        }
 	    });
@@ -131,11 +133,10 @@ public class PasswordFrag extends OneActivityFragment implements OnClickListener
 		passwordView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 	        public void onFocusChange(View v, boolean hasFocus) {
 	            if (!hasFocus)  {
-	            	hideSoftKeyboard();
+	            	((MainActivity) getActivity()).hideSoftKeyboard();
 	            }
 	        }
 	    });
 	}
-	
 	
 }

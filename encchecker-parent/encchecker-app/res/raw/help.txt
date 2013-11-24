@@ -1,0 +1,10 @@
+EncChecker je aplikacija kojom na lagan način možete provjeriti stanje na vašem ENC uređaju od HAC-a.
+
+Na prvom ekranu trebate upisati korisničko ime i lozinku koju bi upisali na stranicama HAC-a (https://prodaja.hac.hr). 
+
+U slučaju da program, iz bilo kojeg razloga, ne može pristupiti stranicama HAC-a. prikazati će se zadnje poznato stanje računa uz napomenu da se radi o Offline stanju.
+
+Za sva pitanja i sugestije molimo vas da nam se obratite na email enc.checker@gmail.com
+
+COPYRIGHT ©2013, EncChecker Team
+All rights reserved. 

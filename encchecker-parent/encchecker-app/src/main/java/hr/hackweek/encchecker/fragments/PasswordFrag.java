@@ -9,8 +9,10 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +55,8 @@ public class PasswordFrag extends Fragment implements OnClickListener {
 		initUsername();
 
 		initPassword();
+		
+		setKeyboardListeners();
 	}
 
 	private void checkErrorMessage() {
@@ -98,4 +102,41 @@ public class PasswordFrag extends Fragment implements OnClickListener {
 		editor.commit();
 
 	}
+	
+public void setKeyboardListeners(){
+		
+		// remove keyboard na view click
+		View mainView = getActivity().findViewById(R.id.scrollView);
+		
+		mainView.setOnTouchListener(new OnTouchListener() {
+
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				((MainActivity) getActivity()).hideSoftKeyboard();
+				return false;
+			}
+
+        });
+		
+		
+		View usernameView = getActivity().findViewById(R.id.username);
+
+		usernameView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+	        public void onFocusChange(View v, boolean hasFocus) {
+	            if (!hasFocus) {
+	            	((MainActivity) getActivity()).hideSoftKeyboard();
+	            }
+	        }
+	    });
+		
+		View passwordView = getActivity().findViewById(R.id.password);
+
+		passwordView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+	        public void onFocusChange(View v, boolean hasFocus) {
+	            if (!hasFocus)  {
+	            	((MainActivity) getActivity()).hideSoftKeyboard();
+	            }
+	        }
+	    });
+	}
+	
 }

@@ -39,6 +39,7 @@ public class StateFrag extends Fragment implements OnClickListener {
 	private final String TAG = "STATE_FRAG";
 	private View view;
 	private ProgressBar pb;
+	private TextView encState;
 
 	private TextView title;
 	private String username;
@@ -81,6 +82,8 @@ public class StateFrag extends Fragment implements OnClickListener {
 		refresher = (Button) view.findViewById(R.id.refresher);
 		refresher.setOnClickListener(this);
 
+		encState = (TextView) view.findViewById(R.id.enc_stanje_iznos);
+		encState.setText(fetchStoredState());
 		// setAnimation();
 		return view;
 	}
@@ -89,11 +92,12 @@ public class StateFrag extends Fragment implements OnClickListener {
 	public void onStart() {
 		super.onStart();
 
-		((MainActivity) getActivity()).hideSoftKeyboard();
 
 		loadPreferences();
 
 		fetchUrl();
+		
+		((MainActivity) getActivity()).hideSoftKeyboard();
 	}
 
 	public void fetchUrl() {
@@ -142,17 +146,25 @@ public class StateFrag extends Fragment implements OnClickListener {
 
 		@Override
 		protected String doInBackground(String... params) {
-			httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
-
+			
 			String response;
-
-			if (online) {
-				response = postLoginData(params[0]);
-			} else {
-				response = fetchStoredState();
+			
+			if(username==null || password==null){
+				response = getResources().getString(R.string.error_wrong_data_message);
 			}
+			else{
+				httpclient = AndroidHttpClient.newInstance("AndroidHttpClient");
+				
+				if (online) {
+					response = postLoginData(params[0]);
+				} else {
+					response = fetchStoredState();
+				}
 
-			httpclient.close();
+				httpclient.close();
+				
+			}
+			
 			return response;
 		}
 
@@ -276,5 +288,20 @@ public class StateFrag extends Fragment implements OnClickListener {
 
 			return ret;
 		}
+	}
+	
+
+	/**
+	 * Vraća lokalno storani podatak
+	 * 
+	 * @return
+	 */
+	private String fetchStoredState() {
+		String ret = null;
+		if (appSettings.contains(ApplicationConstants.ENC_STAT_PREFERENCES)) {
+			ret = appSettings.getString(ApplicationConstants.ENC_STAT_PREFERENCES, "");
+		}
+
+		return ret;
 	}
 }
